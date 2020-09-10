@@ -55,16 +55,19 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
         }
 
         $html  = "<input type='hidden' name='ccvonlinepayments_issuerkey_".$this->methodId."' value='".esc_html($method->getIssuerKey())."'>";
-        $html .= "<select name='ccvonlinepayments_issuer_".$this->methodId."'>";
 
-        if($method->getId() === "ideal") {
-            $html .= "<option value=''>" . esc_html(__("Choose your bank...", "ccvonlinepayments")) . "</option>";
-        }else{
-            $html .= "<option></option>";
-        }
+        if($method->getIssuers() !== null) {
+            $html .= "<select name='ccvonlinepayments_issuer_".$this->methodId."'>";
 
-        foreach($method->getIssuers() as $issuer) {
-            $html .= "<option value='".esc_attr($issuer->getId())."'>".esc_html($issuer->getDescription())."</option>";
+            if($method->getId() === "ideal") {
+                $html .= "<option value=''>" . esc_html(__("Choose your bank...", "ccvonlinepayments")) . "</option>";
+            }else{
+                $html .= "<option></option>";
+            }
+
+            foreach($method->getIssuers() as $issuer) {
+                $html .= "<option value='".esc_attr($issuer->getId())."'>".esc_html($issuer->getDescription())."</option>";
+            }
         }
 
         $html .= "</select>";
