@@ -1,5 +1,7 @@
 <?php
 
+use CCVOnlinePayments\Lib\Exception\ApiException;
+
 abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
 
     public $methodId;
@@ -162,7 +164,14 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
         $paymentRequest->setBrowserUserAgent($order->get_customer_user_agent());
         $paymentRequest->setBrowserIpAddress($order->get_customer_ip_address());
 
-        $paymentResponse = WC_CCVOnlinePayments::get()->getApi()->createPayment($paymentRequest);
+        try {
+            $paymentResponse = WC_CCVOnlinePayments::get()->getApi()->createPayment($paymentRequest);
+        }catch(ApiException $apiException) {
+            wc_add_notice("There was an unexpected error processing your payment" , 'error' );
+            return [
+                'result' => 'failure'
+            ];
+        }
 
         $wpdb->update(
             $wpdb->prefix."ccvonlinepayments_payments",[
