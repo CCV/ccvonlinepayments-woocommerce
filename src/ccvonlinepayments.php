@@ -78,6 +78,12 @@ function ccvonlinepayments_init() {
         return;
     }
 
+    global $woocommerce;
+    if(!isset($woocommerce->version)) {
+        add_action('admin_notices', 'ccvonlinepayments_woocommerce_not_installed');
+        return;
+    }
+
     if(file_exists(__DIR__."/vendor/autoload.php")) {
         require __DIR__ . "/vendor/autoload.php";
     }else{
@@ -120,6 +126,20 @@ function ccvonlinepayments_missing_curl() {
     echo esc_html__(
         'CCV OnlinePayments requires the curl php extension.'
         );
+    echo '</p></div>';
+
+    return false;
+}
+
+function ccvonlinepayments_woocommerce_not_installed() {
+    if(!is_admin()) {
+        return false;
+    }
+
+    echo '<div class="error"><p>';
+    echo esc_html__(
+        'CCV OnlinePayments requires WooCommerce to function.'
+    );
     echo '</p></div>';
 
     return false;
