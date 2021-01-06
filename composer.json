@@ -1,14 +1,14 @@
 {
-  "name": "ccvonlinepayments/woocommerce",
+  "name": "ccv/woocommerce",
   "description": "CCVOnlinePayments for WooCommerce",
-  "homepage": "https://www.ccvshop.nl/ccv-online-payments",
+  "homepage": "https://www.ccv.eu/nl/betaaloplossingen/betaaloplossingen-online/ccv-online-payments/",
   "type": "wordpress-plugin",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "require": {
-    "ccvonlinepayments/lib": "^1.0"
+    "ccv/lib": "^1.1"
   },
   "require-dev": {
-    "ccvonlinepayments/images": "^1.0"
+    "ccv/images": "^1.1"
   },
   "repositories": [
     {
