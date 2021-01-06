@@ -1,15 +1,15 @@
 <?php
 /*
  * Plugin Name: CCV Online Payments for Woocommerce
- * Plugin URI: https://github.com/CCV-Group-B-V/ccvonlinepayments-wordpress
+ * Plugin URI: https://github.com/CCV-Group-B-V/ccvonlinepayments-woocommerce
  * Description: WooCommerce plugin for CCV Online Payments
  * Author: CCV Online Payments
- * Author URI: https://www.ccvshop.nl/ccv-online-payments
- * Version: 1.0.2
+ * Author URI: https://www.ccv.eu/nl/betaaloplossingen/betaaloplossingen-online/ccv-online-payments/
+ * Version: 1.1.0
  * Requires at least: 5.4
- * Tested up to: 5.5
+ * Tested up to: 5.6
  * WC requires at least: 4.2
- * WC tested up to: 4.4
+ * WC tested up to: 4.8
  */
 
 const CCVONLINEPAYMENTS_MIN_PHP_VERSION = "7.2.0";
