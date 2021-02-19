@@ -9,7 +9,7 @@
  * Requires at least: 5.4
  * Tested up to: 5.6
  * WC requires at least: 4.2
- * WC tested up to: 4.8
+ * WC tested up to: 5.0
  */
 
 const CCVONLINEPAYMENTS_MIN_PHP_VERSION = "7.2.0";
