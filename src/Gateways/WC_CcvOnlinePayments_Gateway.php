@@ -15,16 +15,17 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
             $this->icon             = plugin_dir_url(__DIR__)."images/methods/".$method.".png";
         }
 
+        $title = $this->get_option('title', $this->getDefaultTitle());
         $this->has_fields           = false;
-        $this->method_title         = "CCV Online Payments: ".$method;
+        $this->method_title         = "CCV Online Payments: ".$title;
         $this->method_description   = "";
         $this->enabled              = 'yes';
-        $this->supports             = array('products');
+        $this->supports             = array('products', 'refunds');
 
         $this->init_form_fields();
         $this->init_settings();
 
-        $this->title        = $this->get_option('title', $this->getDefaultTitle());
+        $this->title        = $title;
         $this->description  = $this->get_option('description', $this->getDefaultDescription());
 
         add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
@@ -188,6 +189,73 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
             'result'   => 'success',
             'redirect' => $paymentResponse->getPayUrl()
         );
+    }
+
+    public function can_refund_order(WC_Order $order) : bool{
+        $method = WC_CCVOnlinePayments::get()->getMethodById($this->id);
+        if($method === null) {
+            return false;
+        }
+
+        if(!$method->isRefundSupported()) {
+            return false;
+        }
+
+        $paymentReference = $this->getPaymentReference($order);
+        if($paymentReference === false) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function process_refund(int $order_id, ?float $amount = null, string $reason = '') {
+        $order = wc_get_order($order_id);
+
+        if(!$order) {
+            return false;
+        }
+
+        $paymentReference = $this->getPaymentReference($order);
+        if($paymentReference === false) {
+            return false;
+        }
+
+        $refundRequest = new \CCVOnlinePayments\Lib\RefundRequest();
+        $refundRequest->setReference($paymentReference);
+
+        if($amount !== null) {
+            $refundRequest->setAmount($amount);
+        }
+
+        if($reason !== null) {
+            $refundRequest->setDescription($reason);
+        }
+
+        try {
+            $refundRequest = WC_CCVOnlinePayments::get()->getApi()->createRefund($refundRequest);
+        }catch(ApiException $apiException) {
+            return new WP_Error( 1, $apiException->getMessage() );
+        }
+
+        if($refundRequest->getReference()) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private function getPaymentReference(WC_Order $order) {
+        global $wpdb;
+        $payment = $wpdb->get_row( $wpdb->prepare(
+            'SELECT payment_reference FROM '.$wpdb->prefix.'ccvonlinepayments_payments WHERE order_number=%s', $order->get_order_number())
+        );
+
+        if($payment === null) {
+            return false;
+        }
+
+        return $payment->payment_reference;
     }
 
     public abstract function getDefaultTitle();

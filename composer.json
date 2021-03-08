@@ -3,9 +3,9 @@
   "description": "CCVOnlinePayments for WooCommerce",
   "homepage": "https://www.ccv.eu/nl/betaaloplossingen/betaaloplossingen-online/ccv-online-payments/",
   "type": "wordpress-plugin",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "require": {
-    "ccv/lib": "^1.1"
+    "ccv/lib": "^1.2"
   },
   "require-dev": {
     "ccv/images": "^1.1"
