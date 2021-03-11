@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2234c7c0df4302b313aeddd97ce34395",
+    "content-hash": "29e5641834f32120444c396170641eba",
     "packages": [
         {
             "name": "brick/phonenumber",
@@ -53,12 +53,12 @@
             "time": "2017-04-05T12:29:50+00:00"
         },
         {
-            "name": "ccv/lib",
-            "version": "1.2",
+            "name": "ccv/php-lib",
+            "version": "1.2.1",
             "dist": {
                 "type": "path",
                 "url": "../lib",
-                "reference": "820af4a1bddb5325cb7535ae36b4f899d4a771cb"
+                "reference": "54bd703e87bed87eabcbce4dd6a7a8ef9c98a882"
             },
             "require": {
                 "brick/phonenumber": "0.1.*",
@@ -74,8 +74,17 @@
                     "CCVOnlinePayments\\Lib\\": "src/"
                 }
             },
-            "description": "CCVOnlinePayments library for PHP",
-            "homepage": "https://www.ccv.eu/nl/betaaloplossingen/betaaloplossingen-online/ccv-online-payments/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Payment PHP library used by the official CCV Payment Services plugins",
+            "homepage": "https://github.com/CCV/ccvonlinepayments-php-lib",
+            "keywords": [
+                "ccv",
+                "library",
+                "payments",
+                "php"
+            ],
             "transport-options": {
                 "relative": true
             }
@@ -411,15 +420,24 @@
     "packages-dev": [
         {
             "name": "ccv/images",
-            "version": "1.1",
+            "version": "1.1.1",
             "dist": {
                 "type": "path",
                 "url": "../images",
                 "reference": "619ae7bc774727d0e2c3985664536f40eb35679f"
             },
             "type": "library",
-            "description": "CCVOnlinePayments images",
-            "homepage": "https://www.ccv.eu/nl/betaaloplossingen/betaaloplossingen-online/ccv-online-payments/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Payment resources library used by the official CCV Payment Services plugins ",
+            "homepage": "https://github.com/CCV/ccvonlinepayments-images",
+            "keywords": [
+                "ccv",
+                "library",
+                "payments",
+                "php"
+            ],
             "transport-options": {
                 "relative": true
             }
