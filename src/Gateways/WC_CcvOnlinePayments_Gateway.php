@@ -209,7 +209,7 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
         return true;
     }
 
-    public function process_refund(int $order_id, ?float $amount = null, string $reason = '') {
+    public function process_refund( $order_id, $amount = null, $reason = '' ) {
         $order = wc_get_order($order_id);
 
         if(!$order) {
