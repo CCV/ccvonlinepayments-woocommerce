@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "59a81b6e48538ed7365c9727f16ff7b5",
+    "content-hash": "963f9876694c247e68e6fa5853a0d1b3",
     "packages": [
         {
             "name": "brick/phonenumber",
@@ -54,16 +54,16 @@
         },
         {
             "name": "ccv/php-lib",
-            "version": "1.2.2",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CCV/ccvonlinepayments-php-lib.git",
-                "reference": "5185b8f386e75ba6442c9c74a203c4a77dd9d5c5"
+                "reference": "650144d872ecebc677e66a94bbcc0c866f5e7503"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CCV/ccvonlinepayments-php-lib/zipball/5185b8f386e75ba6442c9c74a203c4a77dd9d5c5",
-                "reference": "5185b8f386e75ba6442c9c74a203c4a77dd9d5c5",
+                "url": "https://api.github.com/repos/CCV/ccvonlinepayments-php-lib/zipball/650144d872ecebc677e66a94bbcc0c866f5e7503",
+                "reference": "650144d872ecebc677e66a94bbcc0c866f5e7503",
                 "shasum": ""
             },
             "require": {
@@ -94,22 +94,22 @@
             ],
             "support": {
                 "issues": "https://github.com/CCV/ccvonlinepayments-php-lib/issues",
-                "source": "https://github.com/CCV/ccvonlinepayments-php-lib/tree/v1.2.2"
+                "source": "https://github.com/CCV/ccvonlinepayments-php-lib/tree/v1.2.3"
             },
-            "time": "2021-04-16T08:40:24+00:00"
+            "time": "2021-04-29T13:55:20+00:00"
         },
         {
             "name": "giggsey/libphonenumber-for-php",
-            "version": "8.12.21",
+            "version": "8.12.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/giggsey/libphonenumber-for-php.git",
-                "reference": "272b8123ba7f1b7975620c6389e7206281b4a3ce"
+                "reference": "dc9992c35e52235c36241ebb5ddc280ceebe3c09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/272b8123ba7f1b7975620c6389e7206281b4a3ce",
-                "reference": "272b8123ba7f1b7975620c6389e7206281b4a3ce",
+                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/dc9992c35e52235c36241ebb5ddc280ceebe3c09",
+                "reference": "dc9992c35e52235c36241ebb5ddc280ceebe3c09",
                 "shasum": ""
             },
             "require": {
@@ -123,7 +123,7 @@
                 "pear/versioncontrol_git": "^0.5",
                 "phing/phing": "^2.7",
                 "php-coveralls/php-coveralls": "^1.0|^2.0",
-                "symfony/console": "^2.8|^3.0",
+                "symfony/console": "^2.8|^3.0|^v4.4|^v5.2",
                 "symfony/phpunit-bridge": "^4.2 || ^5"
             },
             "type": "library",
@@ -169,7 +169,7 @@
                 "issues": "https://github.com/giggsey/libphonenumber-for-php/issues",
                 "source": "https://github.com/giggsey/libphonenumber-for-php"
             },
-            "time": "2021-04-06T08:37:32+00:00"
+            "time": "2021-04-29T07:34:59+00:00"
         },
         {
             "name": "giggsey/locale",
