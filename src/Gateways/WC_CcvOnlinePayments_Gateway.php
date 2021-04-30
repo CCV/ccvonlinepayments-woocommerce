@@ -191,7 +191,7 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
         );
     }
 
-    public function can_refund_order(WC_Order $order) : bool{
+    public function can_refund_order($order) : bool{
         $method = WC_CCVOnlinePayments::get()->getMethodById($this->id);
         if($method === null) {
             return false;
@@ -209,7 +209,7 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
         return true;
     }
 
-    public function process_refund( $order_id, $amount = null, $reason = '' ) {
+    public function process_refund($order_id, $amount = null, $reason = '' ) {
         $order = wc_get_order($order_id);
 
         if(!$order) {
@@ -245,7 +245,7 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
         }
     }
 
-    private function getPaymentReference(WC_Order $order) {
+    private function getPaymentReference($order) {
         global $wpdb;
         $payment = $wpdb->get_row( $wpdb->prepare(
             'SELECT payment_reference FROM '.$wpdb->prefix.'ccvonlinepayments_payments WHERE order_number=%s', $order->get_order_number())
