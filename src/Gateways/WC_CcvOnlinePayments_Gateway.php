@@ -140,26 +140,33 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
         $paymentRequest->setScaReady(true);
 
         $billingAddress = $order->get_address('billing');
-        $paymentRequest->setBillingAddress($billingAddress['address_1']);
-        $paymentRequest->setBillingCity($billingAddress['city']);
-        $paymentRequest->setBillingPostalCode($billingAddress['postcode']);
-        $paymentRequest->setBillingCountry($billingAddress['country']);
-        $paymentRequest->setBillingState($billingAddress['state'] != "" ? $billingAddress['state'] : null);
-        $paymentRequest->setBillingPhoneNumber($billingAddress['phone']);
+        if($billingAddress !== null) {
+            $paymentRequest->setBillingAddress($billingAddress['address_1']);
+            $paymentRequest->setBillingCity($billingAddress['city']);
+            $paymentRequest->setBillingPostalCode($billingAddress['postcode']);
+            $paymentRequest->setBillingCountry($billingAddress['country'] != "" ? $billingAddress['country'] : null);
+            $paymentRequest->setBillingState($billingAddress['state'] != "" ? $billingAddress['state'] : null);
+            $paymentRequest->setBillingPhoneNumber($billingAddress['phone']);
+        }
 
-        $shippingAddress = $order->get_address('billing');
-        $paymentRequest->setShippingAddress($shippingAddress['address_1']);
-        $paymentRequest->setShippingCity($shippingAddress['city']);
-        $paymentRequest->setShippingPostalCode($shippingAddress['postcode']);
-        $paymentRequest->setShippingCountry($shippingAddress['country']);
-        $paymentRequest->setShippingState($shippingAddress['state'] != "" ? $shippingAddress['state'] : null);
+        $shippingAddress = $order->get_address('shipping');
+        if($shippingAddress !== null) {
+            $paymentRequest->setShippingAddress($shippingAddress['address_1']);
+            $paymentRequest->setShippingCity($shippingAddress['city']);
+            $paymentRequest->setShippingPostalCode($shippingAddress['postcode']);
+            $paymentRequest->setShippingCountry($shippingAddress['country'] != "" ? $shippingAddress['country'] : null);
+            $paymentRequest->setShippingState($shippingAddress['state'] != "" ? $shippingAddress['state'] : null);
+        }
 
         /** @var WP_User $userData */
         $userData = get_userdata($order->get_customer_id());
         $paymentRequest->setAccountInfoAccountIdentifier($order->get_customer_id());
         $paymentRequest->setAccountInfoAccountCreationDate(DateTime::createFromFormat('Y-m-d H:i:s', $userData->user_registered));
         $paymentRequest->setAccountInfoEmail($userData->user_email);
-        $paymentRequest->setAccountInfoHomePhoneNumber($billingAddress['phone']);
+
+        if($billingAddress !== null) {
+            $paymentRequest->setAccountInfoHomePhoneNumber($billingAddress['phone'] ?? null);
+        }
 
         $paymentRequest->setBrowserFromServer();
         $paymentRequest->setBrowserUserAgent($order->get_customer_user_agent());
