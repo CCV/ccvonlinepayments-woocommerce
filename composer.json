@@ -5,7 +5,7 @@
   "homepage": "https://github.com/CCV/ccvonlinepayments-woocommerce",
   "license": "MIT",
   "type": "wordpress-plugin",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "require": {
     "ccv/php-lib": "^1.2.3"
   },
