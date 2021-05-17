@@ -1,0 +1,80 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ccvonlinepayments\n"
+"PO-Revision-Date: 2021-05-17 12:01+0200\n"
+"Language: nl_BE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: Gateways/WC_CcvOnlinePayments_Gateway.php:37
+msgid "Title"
+msgstr "Titel"
+
+#: Gateways/WC_CcvOnlinePayments_Gateway.php:43
+msgid "Description"
+msgstr "Omschrijving"
+
+#: Gateways/WC_CcvOnlinePayments_Gateway.php:66
+msgid "Choose your bank..."
+msgstr "Kies uw bank..."
+
+#: Gateways/WC_CcvOnlinePayments_Gateway_Banktransfer.php:10
+msgid "Bank Transfer"
+msgstr "Overschrijving"
+
+#: Gateways/WC_CcvOnlinePayments_Gateway_Card_Amex.php:10
+msgid "American Express"
+msgstr "American Express"
+
+#: Gateways/WC_CcvOnlinePayments_Gateway_Card_Bcmc.php:10
+msgid "Bancontact"
+msgstr "Bancontact"
+
+#: Gateways/WC_CcvOnlinePayments_Gateway_Card_Maestro.php:10
+msgid "Maestro"
+msgstr "Maestro"
+
+#: Gateways/WC_CcvOnlinePayments_Gateway_Card_Mastercard.php:10
+msgid "Mastercard"
+msgstr "Mastercard"
+
+#: Gateways/WC_CcvOnlinePayments_Gateway_Card_Visa.php:10
+msgid "Visa"
+msgstr "Visa"
+
+#: Gateways/WC_CcvOnlinePayments_Gateway_Eps.php:10
+msgid "Eps"
+msgstr "Eps"
+
+#: Gateways/WC_CcvOnlinePayments_Gateway_Giropay.php:10
+msgid "Giropay"
+msgstr "Giropay"
+
+#: Gateways/WC_CcvOnlinePayments_Gateway_Ideal.php:11
+msgid "iDeal"
+msgstr "iDeal"
+
+#: Gateways/WC_CcvOnlinePayments_Gateway_Payconiq.php:10
+msgid "Payconiq"
+msgstr "Payconiq"
+
+#: Gateways/WC_CcvOnlinePayments_Gateway_Paypal.php:10
+msgid "Paypal"
+msgstr "Paypal"
+
+#: Gateways/WC_CcvOnlinePayments_Gateway_Sofort.php:10
+msgid "Sofort"
+msgstr "Sofort"
+
+#: Gateways/WC_CcvOnlinePayments_Gateway_Terminal.php:10
+msgid "Terminal (instore solution)"
+msgstr "Terminal (instore solution)"
+
+#: ccvonlinepayments.php:49
+msgid "CCV Online Payments Settings"
+msgstr "CCV Online Payments Instellingen"
+
+#: ccvonlinepayments.php:54
+msgid "API key"
+msgstr "API key"
