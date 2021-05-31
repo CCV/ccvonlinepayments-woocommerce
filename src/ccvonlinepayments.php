@@ -162,7 +162,7 @@ function ccvonlinepayments_disable_gateways(array $gateways) {
     }
 
     foreach($gateways as $key => $gateway) {
-        if(strpos($gateway, "WC_CcvOnlinePayments_Gateway_") === 0) {
+        if(is_string($gateway) && strpos($gateway, "WC_CcvOnlinePayments_Gateway_") === 0) {
             $methodId = strtolower(str_replace("WC_CcvOnlinePayments_Gateway_","", $gateway));
 
             if(!isset($methodsAllowed[$methodId])) {
