@@ -158,11 +158,16 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
             $paymentRequest->setShippingState($shippingAddress['state'] != "" ? $shippingAddress['state'] : null);
         }
 
-        /** @var WP_User $userData */
-        $userData = get_userdata($order->get_customer_id());
-        $paymentRequest->setAccountInfoAccountIdentifier($order->get_customer_id());
-        $paymentRequest->setAccountInfoAccountCreationDate(DateTime::createFromFormat('Y-m-d H:i:s', $userData->user_registered));
-        $paymentRequest->setAccountInfoEmail($userData->user_email);
+        if($order->get_customer_id() > 0) {
+            $paymentRequest->setAccountInfoAccountIdentifier($order->get_customer_id());
+
+            /** @var WP_User $userData */
+            $userData = get_userdata($order->get_customer_id());
+            if($userData !== false) {
+                $paymentRequest->setAccountInfoAccountCreationDate(DateTime::createFromFormat('Y-m-d H:i:s', $userData->user_registered));
+                $paymentRequest->setAccountInfoEmail($userData->user_email);
+            }
+        }
 
         if($billingAddress !== null) {
             $paymentRequest->setAccountInfoHomePhoneNumber($billingAddress['phone'] ?? null);
