@@ -96,10 +96,32 @@ class WC_CCVOnlinePayments {
         }
 
         $paymentStatus = self::get()->getApi()->getPaymentStatus($payment->payment_reference);
-        if($paymentStatus->getStatus() === \CCVOnlinePayments\Lib\PaymentStatus::STATUS_SUCCESS) {
-            $order->payment_complete($payment->payment_reference);
+        switch($paymentStatus->getStatus()) {
+            case \CCVOnlinePayments\Lib\PaymentStatus::STATUS_FAILED:
+                if($paymentStatus->getFailureCode() === \CCVOnlinePayments\Lib\PaymentStatus::FAILURE_CODE_CANCELLED) {
+                    self::setNewStatus($order, 'failed', __("Payment was cancelled.", "ccvonlinepayments"));
+                }else{
+                    self::setNewStatus($order, 'failed');
+                }
+                break;
+            case \CCVOnlinePayments\Lib\PaymentStatus::STATUS_MANUAL_INTERVENTION:
+                self::setNewStatus($order, 'on-hold');
+                break;
+            case \CCVOnlinePayments\Lib\PaymentStatus::STATUS_SUCCESS:
+                if(!$order->is_paid()) {
+                    $order->payment_complete($payment->payment_reference);
+                }
+                break;
         }
 
         return $order;
+    }
+
+    private static function setNewStatus($order, $newStatus, $note = '') {
+        if($order->get_status() === $newStatus) {
+            return;
+        }
+
+        $order->update_status($newStatus, $note);
     }
 }

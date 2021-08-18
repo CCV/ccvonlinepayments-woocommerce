@@ -87,7 +87,10 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
         global $woocommerce, $wpdb;
 
         $order = new WC_Order( $order_id );
-        $order->update_status('on-hold');
+
+        if($order->get_status() !== "pending") {
+            $order->update_status("pending");
+        }
 
         $wpdb->show_errors(true);
         $wpdb->insert(
@@ -194,8 +197,6 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
                 "payment_id" => $paymentId
             ]
         );
-
-        $woocommerce->cart->empty_cart();
 
         return array(
             'result'   => 'success',

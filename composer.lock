@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "963f9876694c247e68e6fa5853a0d1b3",
+    "content-hash": "905adf53fdf058786492cf3955f7ea91",
     "packages": [
         {
             "name": "brick/phonenumber",
@@ -54,16 +54,16 @@
         },
         {
             "name": "ccv/php-lib",
-            "version": "1.2.3",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CCV/ccvonlinepayments-php-lib.git",
-                "reference": "650144d872ecebc677e66a94bbcc0c866f5e7503"
+                "reference": "0f7074823bf0f5a4120117b2c9356e253f78069e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CCV/ccvonlinepayments-php-lib/zipball/650144d872ecebc677e66a94bbcc0c866f5e7503",
-                "reference": "650144d872ecebc677e66a94bbcc0c866f5e7503",
+                "url": "https://api.github.com/repos/CCV/ccvonlinepayments-php-lib/zipball/0f7074823bf0f5a4120117b2c9356e253f78069e",
+                "reference": "0f7074823bf0f5a4120117b2c9356e253f78069e",
                 "shasum": ""
             },
             "require": {
@@ -94,22 +94,22 @@
             ],
             "support": {
                 "issues": "https://github.com/CCV/ccvonlinepayments-php-lib/issues",
-                "source": "https://github.com/CCV/ccvonlinepayments-php-lib/tree/v1.2.3"
+                "source": "https://github.com/CCV/ccvonlinepayments-php-lib/tree/v1.2.4"
             },
-            "time": "2021-04-29T13:55:20+00:00"
+            "time": "2021-08-18T09:30:53+00:00"
         },
         {
             "name": "giggsey/libphonenumber-for-php",
-            "version": "8.12.22",
+            "version": "8.12.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/giggsey/libphonenumber-for-php.git",
-                "reference": "dc9992c35e52235c36241ebb5ddc280ceebe3c09"
+                "reference": "f503d56d269e9b8572440820ef029e296dadaa1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/dc9992c35e52235c36241ebb5ddc280ceebe3c09",
-                "reference": "dc9992c35e52235c36241ebb5ddc280ceebe3c09",
+                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/f503d56d269e9b8572440820ef029e296dadaa1e",
+                "reference": "f503d56d269e9b8572440820ef029e296dadaa1e",
                 "shasum": ""
             },
             "require": {
@@ -169,7 +169,7 @@
                 "issues": "https://github.com/giggsey/libphonenumber-for-php/issues",
                 "source": "https://github.com/giggsey/libphonenumber-for-php"
             },
-            "time": "2021-04-29T07:34:59+00:00"
+            "time": "2021-07-20T13:33:24+00:00"
         },
         {
             "name": "giggsey/locale",
@@ -226,16 +226,16 @@
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "8.9.2",
+            "version": "8.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "45db373722c983f4c65269b92e1c351ee390c292"
+                "reference": "c97c96d5d422b4085aba32ace096c3e404dde607"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/45db373722c983f4c65269b92e1c351ee390c292",
-                "reference": "45db373722c983f4c65269b92e1c351ee390c292",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/c97c96d5d422b4085aba32ace096c3e404dde607",
+                "reference": "c97c96d5d422b4085aba32ace096c3e404dde607",
                 "shasum": ""
             },
             "require": {
@@ -291,22 +291,22 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/8.9.2"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/8.10.0"
             },
-            "time": "2021-03-17T14:47:06+00:00"
+            "time": "2021-06-23T14:34:00+00:00"
         },
         {
             "name": "psr/log",
-            "version": "1.1.3",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "0f73288fd15629204f9d42b7055f72dacbe811fc"
+                "reference": "d49695b909c3b7628b6289db5479a1c204601f11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/0f73288fd15629204f9d42b7055f72dacbe811fc",
-                "reference": "0f73288fd15629204f9d42b7055f72dacbe811fc",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/d49695b909c3b7628b6289db5479a1c204601f11",
+                "reference": "d49695b909c3b7628b6289db5479a1c204601f11",
                 "shasum": ""
             },
             "require": {
@@ -330,7 +330,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                    "homepage": "https://www.php-fig.org/"
                 }
             ],
             "description": "Common interface for logging libraries",
@@ -341,22 +341,22 @@
                 "psr-3"
             ],
             "support": {
-                "source": "https://github.com/php-fig/log/tree/1.1.3"
+                "source": "https://github.com/php-fig/log/tree/1.1.4"
             },
-            "time": "2020-03-23T09:12:05+00:00"
+            "time": "2021-05-03T11:20:27+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.22.1",
+            "version": "v1.23.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "5232de97ee3b75b0360528dae24e73db49566ab1"
+                "reference": "9174a3d80210dca8daa7f31fec659150bbeabfc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/5232de97ee3b75b0360528dae24e73db49566ab1",
-                "reference": "5232de97ee3b75b0360528dae24e73db49566ab1",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/9174a3d80210dca8daa7f31fec659150bbeabfc6",
+                "reference": "9174a3d80210dca8daa7f31fec659150bbeabfc6",
                 "shasum": ""
             },
             "require": {
@@ -368,7 +368,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.22-dev"
+                    "dev-main": "1.23-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
@@ -407,7 +407,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.22.1"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.23.1"
             },
             "funding": [
                 {
@@ -423,7 +423,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-22T09:19:47+00:00"
+            "time": "2021-05-27T12:26:48+00:00"
         }
     ],
     "packages-dev": [
