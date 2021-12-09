@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "905adf53fdf058786492cf3955f7ea91",
+    "content-hash": "8b275f4495efbb055b6687161eb19770",
     "packages": [
         {
             "name": "brick/phonenumber",
@@ -429,16 +429,16 @@
     "packages-dev": [
         {
             "name": "ccv/images",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CCV/ccvonlinepayments-images.git",
-                "reference": "5e8a8193abc804f7ae6e0a972f811f2f5ba378bf"
+                "reference": "2d9462633d4e9b2b9ff8d9ee7d534b0ee7e62ef9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CCV/ccvonlinepayments-images/zipball/5e8a8193abc804f7ae6e0a972f811f2f5ba378bf",
-                "reference": "5e8a8193abc804f7ae6e0a972f811f2f5ba378bf",
+                "url": "https://api.github.com/repos/CCV/ccvonlinepayments-images/zipball/2d9462633d4e9b2b9ff8d9ee7d534b0ee7e62ef9",
+                "reference": "2d9462633d4e9b2b9ff8d9ee7d534b0ee7e62ef9",
                 "shasum": ""
             },
             "type": "library",
@@ -456,9 +456,9 @@
             ],
             "support": {
                 "issues": "https://github.com/CCV/ccvonlinepayments-images/issues",
-                "source": "https://github.com/CCV/ccvonlinepayments-images/tree/v1.1.1"
+                "source": "https://github.com/CCV/ccvonlinepayments-images/tree/v1.1.2"
             },
-            "time": "2021-03-11T14:41:48+00:00"
+            "time": "2021-12-09T11:07:57+00:00"
         }
     ],
     "aliases": [],
@@ -468,5 +468,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }

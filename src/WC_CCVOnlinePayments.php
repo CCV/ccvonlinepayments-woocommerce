@@ -98,14 +98,18 @@ class WC_CCVOnlinePayments {
         $paymentStatus = self::get()->getApi()->getPaymentStatus($payment->payment_reference);
         switch($paymentStatus->getStatus()) {
             case \CCVOnlinePayments\Lib\PaymentStatus::STATUS_FAILED:
-                if($paymentStatus->getFailureCode() === \CCVOnlinePayments\Lib\PaymentStatus::FAILURE_CODE_CANCELLED) {
-                    self::setNewStatus($order, 'failed', __("Payment was cancelled.", "ccvonlinepayments"));
-                }else{
-                    self::setNewStatus($order, 'failed');
+                if(!$order->is_paid()) {
+                    if($paymentStatus->getFailureCode() === \CCVOnlinePayments\Lib\PaymentStatus::FAILURE_CODE_CANCELLED) {
+                        self::setNewStatus($order, 'failed', __("Payment was cancelled.", "ccvonlinepayments"));
+                    }else{
+                        self::setNewStatus($order, 'failed');
+                    }
                 }
                 break;
             case \CCVOnlinePayments\Lib\PaymentStatus::STATUS_MANUAL_INTERVENTION:
-                self::setNewStatus($order, 'on-hold');
+                if(!$order->is_paid()) {
+                    self::setNewStatus($order, 'on-hold');
+                }
                 break;
             case \CCVOnlinePayments\Lib\PaymentStatus::STATUS_SUCCESS:
                 if(!$order->is_paid()) {
