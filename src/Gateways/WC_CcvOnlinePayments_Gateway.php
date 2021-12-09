@@ -92,19 +92,30 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
             $order->update_status("pending");
         }
 
+        $method = WC_CCVOnlinePayments::get()->getMethodById($this->id);
+        if($method->isTransactionTypeSaleSupported()) {
+            $transactionType = \CCVOnlinePayments\Lib\PaymentRequest::TRANSACTION_TYPE_SALE;
+        }elseif($method->isTransactionTypeAuthoriseSupported()){
+            $transactionType = \CCVOnlinePayments\Lib\PaymentRequest::TRANSACTION_TYPE_AUTHORIZE;
+        }else{
+            throw new \Exception("No transaction types supported");
+        }
+
         $wpdb->show_errors(true);
         $wpdb->insert(
             $wpdb->prefix."ccvonlinepayments_payments",[
                 "payment_reference" => null,
                 "order_number"      => $order->get_order_number(),
                 "status"            => \CCVOnlinePayments\Lib\PaymentStatus::STATUS_PENDING,
-                "method"            => $this->methodId
+                "method"            => $this->methodId,
+                "transaction_type"  => $transactionType
             ]
         );
         $paymentId = $wpdb->insert_id;
 
         $paymentRequest = new \CCVOnlinePayments\Lib\PaymentRequest();
 
+        $paymentRequest->setTransactionType($transactionType);
         $paymentRequest->setAmount($order->get_total());
         $paymentRequest->setCurrency($order->get_currency());
         $paymentRequest->setMerchantOrderReference("Order ".$order->get_order_number());
@@ -180,6 +191,10 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
         $paymentRequest->setBrowserUserAgent($order->get_customer_user_agent());
         $paymentRequest->setBrowserIpAddress($order->get_customer_ip_address());
 
+        if($method->isOrderLinesRequired()) {
+            $paymentRequest->setOrderLines(ccvonlinepayments_get_orderlines_by_order($order));
+        }
+
         try {
             $paymentResponse = WC_CCVOnlinePayments::get()->getApi()->createPayment($paymentRequest);
         }catch(ApiException $apiException) {
@@ -214,7 +229,7 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
             return false;
         }
 
-        $paymentReference = $this->getPaymentReference($order);
+        $paymentReference = $this->getReferenceForRefund($order);
         if($paymentReference === false) {
             return false;
         }
@@ -229,8 +244,13 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
             return false;
         }
 
-        $paymentReference = $this->getPaymentReference($order);
+        $paymentReference = $this->getReferenceForRefund($order);
         if($paymentReference === false) {
+            return false;
+        }
+
+        $method = WC_CCVOnlinePayments::get()->getMethodById($this->id);
+        if($method->isOrderLinesRequired() && $amount != $order->get_total()) {
             return false;
         }
 
@@ -258,6 +278,7 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
         }
     }
 
+
     private function getPaymentReference($order) {
         global $wpdb;
         $payment = $wpdb->get_row( $wpdb->prepare(
@@ -269,6 +290,27 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
         }
 
         return $payment->payment_reference;
+    }
+
+    private function getReferenceForRefund($order) {
+        global $wpdb;
+        $payment = $wpdb->get_row( $wpdb->prepare(
+            'SELECT payment_reference, transaction_type, capture_reference FROM '.$wpdb->prefix.'ccvonlinepayments_payments WHERE order_number=%s', $order->get_order_number())
+        );
+
+        if($payment === null) {
+            return false;
+        }
+
+        if($payment->transaction_type === \CCVOnlinePayments\Lib\PaymentRequest::TRANSACTION_TYPE_AUTHORIZE) {
+            if($payment->capture_reference) {
+                return $payment->capture_reference;
+            }else{
+                return false;
+            }
+        }else {
+            return $payment->payment_reference;
+        }
     }
 
     public abstract function getDefaultTitle();

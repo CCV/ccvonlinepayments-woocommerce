@@ -76,6 +76,10 @@ msgstr "Paypal"
 msgid "Sofort"
 msgstr "Sofort"
 
+#: Gateways/WC_CcvOnlinePayments_Gateway_Klarna.php:10
+msgid "Klarna"
+msgstr "Klarna"
+
 #: Gateways/WC_CcvOnlinePayments_Gateway_Terminal.php:10
 msgid "Terminal (instore solution)"
 msgstr "Terminal (instore solution)"
