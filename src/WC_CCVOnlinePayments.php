@@ -68,13 +68,13 @@ class WC_CCVOnlinePayments {
     }
 
     public static function doReturn() {
-        $order = self::handleCallback();
+        list($order,$payment) = self::getOrderAndPayment();
 
         $gateway = wc_get_payment_gateway_by_order($order);
         wp_safe_redirect($gateway->get_return_url($order));
     }
 
-    private static function handleCallback() {
+    private static function getOrderAndPayment() {
         global $wpdb;
 
         $payment = $wpdb->get_row( $wpdb->prepare(
@@ -94,6 +94,12 @@ class WC_CCVOnlinePayments {
         if(!$order->key_is_valid($_GET['key'])) {
             throw new \Exception("Invalid key");
         }
+
+        return [$order,$payment];
+    }
+
+    private static function handleCallback() {
+        list($order,$payment) = self::getOrderAndPayment();
 
         $paymentStatus = self::get()->getApi()->getPaymentStatus($payment->payment_reference);
         switch($paymentStatus->getStatus()) {
