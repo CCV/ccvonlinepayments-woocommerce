@@ -54,16 +54,16 @@
         },
         {
             "name": "ccv/php-lib",
-            "version": "1.3.2",
+            "version": "1.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CCV/ccvonlinepayments-php-lib.git",
-                "reference": "4f2aa6549efea7821bc9da9a4d8beb342774b239"
+                "reference": "64b693d4d1e6da2a91b0fd8be349051081447bfc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CCV/ccvonlinepayments-php-lib/zipball/4f2aa6549efea7821bc9da9a4d8beb342774b239",
-                "reference": "4f2aa6549efea7821bc9da9a4d8beb342774b239",
+                "url": "https://api.github.com/repos/CCV/ccvonlinepayments-php-lib/zipball/64b693d4d1e6da2a91b0fd8be349051081447bfc",
+                "reference": "64b693d4d1e6da2a91b0fd8be349051081447bfc",
                 "shasum": ""
             },
             "require": {
@@ -94,9 +94,9 @@
             ],
             "support": {
                 "issues": "https://github.com/CCV/ccvonlinepayments-php-lib/issues",
-                "source": "https://github.com/CCV/ccvonlinepayments-php-lib/tree/v1.3.2"
+                "source": "https://github.com/CCV/ccvonlinepayments-php-lib/tree/v1.3.3"
             },
-            "time": "2022-01-17T11:11:22+00:00"
+            "time": "2022-06-14T12:22:43+00:00"
         },
         {
             "name": "giggsey/libphonenumber-for-php",

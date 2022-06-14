@@ -159,8 +159,11 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
             $paymentRequest->setBillingCity($billingAddress['city']);
             $paymentRequest->setBillingPostalCode($billingAddress['postcode']);
             $paymentRequest->setBillingCountry($billingAddress['country'] != "" ? $billingAddress['country'] : null);
+            $paymentRequest->setBillingEmail($billingAddress['email']);
             $paymentRequest->setBillingState($billingAddress['state'] != "" ? $billingAddress['state'] : null);
             $paymentRequest->setBillingPhoneNumber($billingAddress['phone']);
+            $paymentRequest->setBillingFirstName($billingAddress['first_name']);
+            $paymentRequest->setBillingLastName($billingAddress['last_name']);
         }
 
         $shippingAddress = $order->get_address('shipping');
@@ -170,6 +173,9 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
             $paymentRequest->setShippingPostalCode($shippingAddress['postcode']);
             $paymentRequest->setShippingCountry($shippingAddress['country'] != "" ? $shippingAddress['country'] : null);
             $paymentRequest->setShippingState($shippingAddress['state'] != "" ? $shippingAddress['state'] : null);
+            $paymentRequest->setShippingEmail($shippingAddress['email'] ?? $paymentRequest->getBillingEmail());
+            $paymentRequest->setShippingFirstName($shippingAddress['first_name']);
+            $paymentRequest->setShippingLastName($shippingAddress['last_name']);
         }
 
         if($order->get_customer_id() > 0) {
