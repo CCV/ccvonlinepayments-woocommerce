@@ -68,13 +68,13 @@ class WC_CCVOnlinePayments {
     }
 
     public static function doReturn() {
-        $order = self::handleCallback();
+        list($order,$payment) = self::getOrderAndPayment();
 
         $gateway = wc_get_payment_gateway_by_order($order);
         wp_safe_redirect($gateway->get_return_url($order));
     }
 
-    private static function handleCallback() {
+    private static function getOrderAndPayment() {
         global $wpdb;
 
         $payment = $wpdb->get_row( $wpdb->prepare(
@@ -95,17 +95,27 @@ class WC_CCVOnlinePayments {
             throw new \Exception("Invalid key");
         }
 
+        return [$order,$payment];
+    }
+
+    private static function handleCallback() {
+        list($order,$payment) = self::getOrderAndPayment();
+
         $paymentStatus = self::get()->getApi()->getPaymentStatus($payment->payment_reference);
         switch($paymentStatus->getStatus()) {
             case \CCVOnlinePayments\Lib\PaymentStatus::STATUS_FAILED:
-                if($paymentStatus->getFailureCode() === \CCVOnlinePayments\Lib\PaymentStatus::FAILURE_CODE_CANCELLED) {
-                    self::setNewStatus($order, 'failed', __("Payment was cancelled.", "ccvonlinepayments"));
-                }else{
-                    self::setNewStatus($order, 'failed');
+                if(!$order->is_paid()) {
+                    if($paymentStatus->getFailureCode() === \CCVOnlinePayments\Lib\PaymentStatus::FAILURE_CODE_CANCELLED) {
+                        self::setNewStatus($order, 'failed', __("Payment was cancelled.", "ccvonlinepayments"));
+                    }else{
+                        self::setNewStatus($order, 'failed');
+                    }
                 }
                 break;
             case \CCVOnlinePayments\Lib\PaymentStatus::STATUS_MANUAL_INTERVENTION:
-                self::setNewStatus($order, 'on-hold');
+                if(!$order->is_paid()) {
+                    self::setNewStatus($order, 'on-hold');
+                }
                 break;
             case \CCVOnlinePayments\Lib\PaymentStatus::STATUS_SUCCESS:
                 if(!$order->is_paid()) {

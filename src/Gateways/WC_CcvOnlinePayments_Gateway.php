@@ -151,7 +151,7 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
             $paymentRequest->setBrand($issuer);
         }
 
-        $paymentRequest->setScaReady(true);
+        $paymentRequest->setScaReady(false);
 
         $billingAddress = $order->get_address('billing');
         if($billingAddress !== null) {
