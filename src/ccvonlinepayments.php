@@ -17,10 +17,34 @@ const CCVONLINEPAYMENTS_DATABASE_VERSION = "3";
 const CCVONLINEPAYMENTS_DATABASE_VERSION_PARAMETER_NAME = "ccvonlinepayments-db-version";
 
 register_activation_hook(__FILE__, 'ccvonlinepayments_install');
-function ccvonlinepayments_install() {
+function ccvonlinepayments_install($networkWide) {
     global $wpdb;
 
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+
+    if(is_multisite() && $networkWide) {
+        $blogIds = $wpdb->get_col( "SELECT blog_id FROM $wpdb->blogs" );
+        foreach ( $blogIds as $blogId ) {
+            switch_to_blog( $blogId );
+            ccvonlinepayments_updateDb();
+            restore_current_blog();
+        }
+    }else{
+        ccvonlinepayments_updateDb();
+    }
+}
+
+function ccvonlinepayments_new_blog($blogId) {
+    if ( is_plugin_active_for_network( 'ccvonlinepayments/ccvonlinepayments.php' ) ) {
+        switch_to_blog( $blogId );
+        ccvonlinepayments_updateDb();
+        restore_current_blog();
+    }
+}
+add_action( 'wpmu_new_blog', 'ccvonlinepayments_new_blog', 10, 1 );
+
+function ccvonlinepayments_updateDb() {
+    global $wpdb;
 
     dbDelta('
         CREATE TABLE `'.$wpdb->prefix.'ccvonlinepayments_payments` (
@@ -85,7 +109,9 @@ function ccvonlinepayments_init() {
     }
 
     if(get_option(CCVONLINEPAYMENTS_DATABASE_VERSION_PARAMETER_NAME, '') != CCVONLINEPAYMENTS_DATABASE_VERSION){
-        ccvonlinepayments_install();
+        if(is_plugin_active('ccvonlinepayments/ccvonlinepayments.php')) {
+            ccvonlinepayments_updateDb();
+        }
     }
 
     global $woocommerce;
@@ -264,6 +290,9 @@ function ccvonlinepayments_capture_order($order_id) {
     $payment = $wpdb->get_row( $wpdb->prepare(
         'SELECT payment_reference, transaction_type FROM '.$wpdb->prefix.'ccvonlinepayments_payments WHERE order_number=%s', $order->get_order_number())
     );
+    if($payment->payment_reference === null) {
+        return;
+    }
     if($payment->transaction_type !== \CCVOnlinePayments\Lib\PaymentRequest::TRANSACTION_TYPE_AUTHORIZE) {
         return;
     }
