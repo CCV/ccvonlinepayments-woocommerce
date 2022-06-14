@@ -77,6 +77,13 @@ class WC_CCVOnlinePayments {
     private static function getOrderAndPayment() {
         global $wpdb;
 
+        $orderId = $_GET['order'];
+        $order = wc_get_order($orderId);
+        if(!$order->key_is_valid($_GET['key'])) {
+            throw new \Exception("Invalid key");
+        }
+        $orderNumber = $order->get_order_number();
+
         $payment = $wpdb->get_row( $wpdb->prepare(
             'SELECT payment_reference, order_number FROM '.$wpdb->prefix.'ccvonlinepayments_payments WHERE payment_id=%s', $_GET['payment_id'])
         );
@@ -85,14 +92,8 @@ class WC_CCVOnlinePayments {
             throw new \Exception("Payment not found");
         }
 
-        $orderNumber = $_GET['order'];
         if($payment->order_number != $orderNumber) {
             throw new \Exception("Invalid order number");
-        }
-
-        $order = wc_get_order($orderNumber);
-        if(!$order->key_is_valid($_GET['key'])) {
-            throw new \Exception("Invalid key");
         }
 
         return [$order,$payment];

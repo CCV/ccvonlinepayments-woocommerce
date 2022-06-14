@@ -121,13 +121,13 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
         $paymentRequest->setMerchantOrderReference("Order ".$order->get_order_number());
 
         $paymentRequest->setReturnUrl(add_query_arg(array(
-            'order' => $order->get_order_number(),
+            'order' => $order->get_id(),
             'key'   => $order->get_order_key(),
             'payment_id' => $paymentId
         ), WC()->api_request_url("ccvonlinepayments_return")));
 
         $paymentRequest->setWebhookUrl(add_query_arg(array(
-            'order'      => $order->get_order_number(),
+            'order'      => $order->get_id(),
             'key'        => $order->get_order_key(),
             'payment_id' => $paymentId
         ), WC()->api_request_url("ccvonlinepayments_webhook")));
