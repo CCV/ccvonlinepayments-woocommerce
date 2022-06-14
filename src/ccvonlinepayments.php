@@ -20,8 +20,6 @@ register_activation_hook(__FILE__, 'ccvonlinepayments_install');
 function ccvonlinepayments_install($networkWide) {
     global $wpdb;
 
-    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-
     if(is_multisite() && $networkWide) {
         $blogIds = $wpdb->get_col( "SELECT blog_id FROM $wpdb->blogs" );
         foreach ( $blogIds as $blogId ) {
@@ -45,6 +43,8 @@ add_action( 'wpmu_new_blog', 'ccvonlinepayments_new_blog', 10, 1 );
 
 function ccvonlinepayments_updateDb() {
     global $wpdb;
+
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 
     dbDelta('
         CREATE TABLE `'.$wpdb->prefix.'ccvonlinepayments_payments` (
