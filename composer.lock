@@ -54,16 +54,16 @@
         },
         {
             "name": "ccv/php-lib",
-            "version": "1.3.3",
+            "version": "1.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CCV/ccvonlinepayments-php-lib.git",
-                "reference": "64b693d4d1e6da2a91b0fd8be349051081447bfc"
+                "reference": "cbcc544e3cdb73ce246d2224da95989ee35f4e19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CCV/ccvonlinepayments-php-lib/zipball/64b693d4d1e6da2a91b0fd8be349051081447bfc",
-                "reference": "64b693d4d1e6da2a91b0fd8be349051081447bfc",
+                "url": "https://api.github.com/repos/CCV/ccvonlinepayments-php-lib/zipball/cbcc544e3cdb73ce246d2224da95989ee35f4e19",
+                "reference": "cbcc544e3cdb73ce246d2224da95989ee35f4e19",
                 "shasum": ""
             },
             "require": {
@@ -71,7 +71,7 @@
                 "ext-curl": "*",
                 "ext-json": "*",
                 "php": ">=7.2.0",
-                "php-curl-class/php-curl-class": "^8.8",
+                "php-curl-class/php-curl-class": "^8.8|^9.0",
                 "psr/log": "^1.1"
             },
             "type": "library",
@@ -94,9 +94,9 @@
             ],
             "support": {
                 "issues": "https://github.com/CCV/ccvonlinepayments-php-lib/issues",
-                "source": "https://github.com/CCV/ccvonlinepayments-php-lib/tree/v1.3.3"
+                "source": "https://github.com/CCV/ccvonlinepayments-php-lib/tree/v1.3.4"
             },
-            "time": "2022-06-14T12:22:43+00:00"
+            "time": "2022-09-23T11:36:11+00:00"
         },
         {
             "name": "giggsey/libphonenumber-for-php",
@@ -433,16 +433,16 @@
     "packages-dev": [
         {
             "name": "ccv/images",
-            "version": "1.1.2",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CCV/ccvonlinepayments-images.git",
-                "reference": "2d9462633d4e9b2b9ff8d9ee7d534b0ee7e62ef9"
+                "reference": "4a71a589326b5a5e9a92ee9e7e4596f57113c3d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CCV/ccvonlinepayments-images/zipball/2d9462633d4e9b2b9ff8d9ee7d534b0ee7e62ef9",
-                "reference": "2d9462633d4e9b2b9ff8d9ee7d534b0ee7e62ef9",
+                "url": "https://api.github.com/repos/CCV/ccvonlinepayments-images/zipball/4a71a589326b5a5e9a92ee9e7e4596f57113c3d1",
+                "reference": "4a71a589326b5a5e9a92ee9e7e4596f57113c3d1",
                 "shasum": ""
             },
             "type": "library",
@@ -460,9 +460,9 @@
             ],
             "support": {
                 "issues": "https://github.com/CCV/ccvonlinepayments-images/issues",
-                "source": "https://github.com/CCV/ccvonlinepayments-images/tree/v1.1.2"
+                "source": "https://github.com/CCV/ccvonlinepayments-images/tree/v1.1.3"
             },
-            "time": "2021-12-09T11:07:57+00:00"
+            "time": "2023-03-15T08:36:34+00:00"
         }
     ],
     "aliases": [],
