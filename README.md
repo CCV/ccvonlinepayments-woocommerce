@@ -23,7 +23,7 @@ Official CCV Payment Services plugin for WooCommerce.
 9. Click on Payments
 10. Get your LIVE API key from your My CCV account*
 11. Enter the API key
-12. 
+12. Activate the desired payment methods
 13. Click on save changes twice
 
 * The live API key is released after successful boarding by CCV Online Payments.
