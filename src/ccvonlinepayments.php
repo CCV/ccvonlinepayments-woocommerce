@@ -5,11 +5,11 @@
  * Description: Official CCV Payment Services plugin for WooCommerce
  * Author: CCV Online Payments
  * Author URI: https://www.ccv.eu/nl/betaaloplossingen/betaaloplossingen-online/ccv-online-payments/
- * Version: 1.4.5
+ * Version: 1.4.6
  * Requires at least: 5.4
- * Tested up to: 6.2
+ * Tested up to: 6.4.3
  * WC requires at least: 4.2
- * WC tested up to: 7.8.0
+ * WC tested up to: 8.5.2
  */
 
 const CCVONLINEPAYMENTS_MIN_PHP_VERSION  = "7.2.0";
@@ -177,20 +177,6 @@ function ccvonlinepayments_missing_curl() {
     return false;
 }
 
-function ccvonlinepayments_woocommerce_not_installed() {
-    if(!is_admin()) {
-        return false;
-    }
-
-    echo '<div class="error"><p>';
-    echo esc_html__(
-        'CCV OnlinePayments requires WooCommerce to function.'
-    );
-    echo '</p></div>';
-
-    return false;
-}
-
 function ccvonlinepayments_disable_gateways(array $gateways) {
     $api = WC_CCVOnlinePayments::get()->getApi();
 
@@ -263,7 +249,7 @@ function ccvonlinepayments_cancel_order($order_id) {
     }
 
     $payment = $wpdb->get_row( $wpdb->prepare(
-        'SELECT payment_reference, transaction_type FROM '.$wpdb->prefix.'ccvonlinepayments_payments WHERE order_number=%s', $order->get_order_number())
+        'SELECT payment_reference, transaction_type FROM '.$wpdb->prefix.'ccvonlinepayments_payments WHERE order_number=%s ORDER BY payment_id DESC', $order->get_order_number())
     );
     if($payment->transaction_type !== \CCVOnlinePayments\Lib\PaymentRequest::TRANSACTION_TYPE_AUTHORIZE) {
         return;
@@ -288,8 +274,9 @@ function ccvonlinepayments_capture_order($order_id) {
     }
 
     $payment = $wpdb->get_row( $wpdb->prepare(
-        'SELECT payment_reference, transaction_type FROM '.$wpdb->prefix.'ccvonlinepayments_payments WHERE order_number=%s', $order->get_order_number())
+        'SELECT payment_reference, transaction_type FROM '.$wpdb->prefix.'ccvonlinepayments_payments WHERE order_number=%s ORDER BY payment_id DESC', $order->get_order_number())
     );
+
     if($payment->payment_reference === null) {
         return;
     }
@@ -310,7 +297,13 @@ function ccvonlinepayments_capture_order($order_id) {
             $captureRequest->setOrderLines(ccvonlinepayments_get_orderlines_by_order($order));
         }
 
-        $captureResponse = $api->createCapture($captureRequest);
+        try {
+            $captureResponse = $api->createCapture($captureRequest);
+        }catch(\CCVOnlinePayments\Lib\Exception\ApiException $exception) {
+            $order->add_order_note(__('Could not capture payment.', 'ccvonlinepayments').$exception->getMessage());
+            WC_Admin_Notices::add_custom_notice("ccvonlinepayments_capture_notice_".$order_id, esc_html__(__('Could not capture payment.')));
+            return;
+        }
 
         $wpdb->update(
             $wpdb->prefix."ccvonlinepayments_payments",[

@@ -100,6 +100,7 @@ class WC_CCVOnlinePayments {
     }
 
     private static function handleCallback() {
+        global $wpdb;
         list($order,$payment) = self::getOrderAndPayment();
 
         $paymentStatus = self::get()->getApi()->getPaymentStatus($payment->payment_reference);
@@ -124,6 +125,15 @@ class WC_CCVOnlinePayments {
                 }
                 break;
         }
+
+        $wpdb->update(
+            $wpdb->prefix."ccvonlinepayments_payments",
+            [
+                "status" => $paymentStatus->getStatus()
+            ],[
+                "payment_reference" => $payment->payment_reference
+            ]
+        );
 
         return $order;
     }
