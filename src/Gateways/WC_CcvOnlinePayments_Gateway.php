@@ -59,7 +59,7 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
 
         $html  = "<input type='hidden' name='ccvonlinepayments_issuerkey_".$this->methodId."' value='".esc_html($method->getIssuerKey())."'>";
 
-        if($method->getIssuers() !== null) {
+        if($method->getId() !== "ideal" && $method->getIssuers() !== null) {
             $html .= "<select name='ccvonlinepayments_issuer_".$this->methodId."'>";
 
             if($method->getId() === "ideal") {
