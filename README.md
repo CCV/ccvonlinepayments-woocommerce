@@ -12,22 +12,20 @@ Official CCV Payment Services plugin for WooCommerce.
 
 # 3. Installing the plugin into your web shop
 
-Download the lates version of the plugin https://github.com/CCV/ccvonlinepayments-woocommerce/releases/latest
-
-
-1. Log in to WordPress and go to Plugins
-2. Click on Add New Plugin
-3. Click on Upload plugin
-4. Click on Choose file to upload our plugin, which you downloaded
-5. Click on activate plugin
-6. Activate plugin
-7. Go to WooCommerce
-8. Click on Settings
-9. Click on Payments
-10. Get your LIVE API key from your My CCV account*
-11. Enter the API key
-12. Activate the desired payment methods
-13. Click on save changes twice
+1. Download the lates version of the plugin (.zip)  https://github.com/CCV/ccvonlinepayments-woocommerce/releases/latest
+2. Log in to WordPress and go to Plugins
+3. Click on Add New Plugin
+4. Click on Upload plugin
+5. Click on Choose file to upload our plugin, which you downloaded
+6. Click on activate plugin
+7. Activate plugin
+8. Go to WooCommerce
+9. Click on Settings
+10. Click on Payments
+11. Get your LIVE API key from your My CCV account*
+12. Enter the API key
+13. Activate the desired payment methods
+14. Click on save changes twice
 
 * The live API key is released after successful boarding by CCV Online Payments.
   
