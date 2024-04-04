@@ -11,7 +11,7 @@ Official CCV Payment Services plugin for WooCommerce.
 - PHP 7.2 or higher
 
 # 3. Installing the plugin into your web shop
-
+download the lates version of the plugin https://github.com/CCV/ccvonlinepayments-woocommerce/releases/tag/latest
 1. Log in to WordPress and go to Plugins
 2. Click on Add New Plugin
 3. Click on Upload plugin
