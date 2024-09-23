@@ -1,3 +1,5 @@
+<img src="https://github.com/user-attachments/assets/b1575453-415d-4e8b-92a8-48ff8ab5f53a" alt="WooCommerce" width="200"/>
+
 # About this plugin
 WooCommerce is a popular e-commerce plugin for WordPress, enabling small to medium-sized businesses to easily set up and manage online stores. It's highly customizable, with a large library of themes and extensions, making it ideal for users familiar with WordPress. WooCommerce is user-friendly but also scalable, allowing merchants to grow their store over time.
 
