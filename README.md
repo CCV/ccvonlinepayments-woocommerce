@@ -26,7 +26,7 @@ To support this plugin, the following requirements must be met:
 -	PHP 7.2 or higher
 -	MyCCV account & API key*
 
-*The live API key is released after successful boarding by CCV Online Payments. To register, contact us at https://www.ccv.eu/en/solutions/payment-services/ccv-online-payments/partners/online-payments-form/.
+*The live API key is released after successful boarding by CCV Online Payments. To register, contact us [here](https://www.ccv.eu/en/solutions/payment-services/ccv-online-payments/partners/online-payments-form/).
 
 # Download
 Download the latest version of the plugin (ccvonlinepayments-woocommerce-x.x.x.zip) [here](https://github.com/CCV/ccvonlinepayments-woocommerce/releases/latest)
