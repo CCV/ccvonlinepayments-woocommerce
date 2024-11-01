@@ -1,39 +1,65 @@
-# 1. About this plugin
+<img src="https://github.com/user-attachments/assets/b1575453-415d-4e8b-92a8-48ff8ab5f53a" alt="WooCommerce" width="200"/>
 
-Official CCV Payment Services plugin for WooCommerce.
+# About this plugin
+WooCommerce is a popular e-commerce plugin for WordPress, enabling small to medium-sized businesses to easily set up and manage online stores. It's highly customizable, with a large library of themes and extensions, making it ideal for users familiar with WordPress. WooCommerce is user-friendly but also scalable, allowing merchants to grow their store over time.
 
-# 2. Technical information
+CCV has developed a dedicated plugin that seamlessly integrates WooCommerce with CCV's Online Payments solution. This plugin allows you to easily connect your e-commerce store to CCV's secure payment gateway, enabling smooth and reliable transactions for customers.
 
-## 2.1. Plugin dependencies
+# Payment methods
+CCV makes the following payment methods available in this plugin: 
+- iDeal
+- Bancontact
+- Apple Pay
+- Google Pay
+- Maestro
+- Mastercard
+- Visa
+- Amex
+- PayPal
+- Klarna
+- Bank Transfer	
 
-- WooCommerce 4.2 or higher
-- WordPress 5.4 or higher
-- PHP 7.2 or higher
+# Requirements
+To support this plugin, the following requirements must be met:
+-	WooCommerce 4.2 or higher
+-	WordPress 5.4 or higher
+-	PHP 7.2 or higher
+-	MyCCV account & API key*
 
-# 3. Installing the plugin into your web shop
+*The live API key is released after successful boarding by CCV Online Payments. To register, contact us [here](https://www.ccv.eu/en/solutions/payment-services/ccv-online-payments/partners/online-payments-form/).
 
-1. Log in to WordPress and go to Plugins
-2. Click on Add New Plugin
-3. Click on Upload plugin
-4. Click on Choose file to upload our plugin, which you downloaded
-5. Click on activate plugin
-6. Activate plugin
-7. Go to WooCommerce
-8. Click on Settings
-9. Click on Payments
-10. Get your LIVE API key from your My CCV account*
-11. Enter the API key
-12. Activate the desired payment methods
-13. Click on save changes twice
+# Download
+Download the latest version of the plugin (ccvonlinepayments-woocommerce-x.x.x.zip) [here](https://github.com/CCV/ccvonlinepayments-woocommerce/releases/latest)
 
-* The live API key is released after successful boarding by CCV Online Payments.
-  
-Manuals are available on the [CCV web site](https://www.ccv.eu/nl/service/support/handleidingen).
+# Install
+In WooCommerce Admin:
+1.	Log in to WordPress and go to Plugins
+2.	Click on Add New Plugin
+3.	Click on Upload plugin
+4.	Click on Choose file to upload the CCV plugin
+5.	Click on activate plugin
+6.	Activate plugin
 
-# 4. Support
+# Upgrade
+To upgrade the WooCommerce plugin, simply re-do the chapters Download and Install.
 
-Please create a GitHub issue for feature requests or bug reports. If you have a general question or installation difficulties, you can contact us directly through [this form](https://www.ccv.eu/nl/betaaloplossingen/betaaloplossingen-online/online-payments-voor-developers). 
+# Configure
+In WooCommerce Admin:
+1.	Click on Settings
+2.	Click on Payments
+3.	Get your LIVE API key from your My CCV account
+4.	Enter the API key
+5.	Activate the desired payment methods
+6.	Click on save changes twice
 
-# 5. License
+# Release notes
+At CCV, we are committed to transparency and keeping our users informed about the continuous improvements to our Online Payments solution. To ensure easy access to the latest updates, we maintain a dedicated [release notes website](https://onlinepayments.ccvlab.eu/). This resource provides detailed information about each new version, including feature additions, enhancements, and fixes. By visiting the website, you can stay up to date with the latest developments and make the most of the new tools and capabilities we introduce.
+
+# Contact Us
+Please create a GitHub issue for feature requests or bug reports.
+
+If you have a general question or installation difficulties, you can contact us directly ecommerce@ccv.eu, or call us at +882289999.
+
+# License
 
 [![MIT license](https://img.shields.io/github/license/CCV/ccvonlinepayments-woocommerce)](https://github.com/CCV/ccvonlinepayments-woocommerce/blob/master/LICENSE.txt)
