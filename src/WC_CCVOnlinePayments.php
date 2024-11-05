@@ -4,26 +4,40 @@ use CCVOnlinePayments\Lib\Exception\ApiException;
 
 class WC_CCVOnlinePayments {
 
+    private $apiKey;
     private $api;
     private $cachedMethods = null;
 
     public function __construct()
     {
-        $pluginData = get_file_data(__DIR__."/ccvonlinepayments.php", ["Version" => "Version"]);
-        $pluginVersion = $pluginData['Version'];
+        $this->connect();
+    }
 
+    private function connect() {
+        $this->apiKey = get_option("ccvonlinepayments_api_key");
         $this->api = new \CCVOnlinePayments\Lib\CcvOnlinePaymentsApi(
-            new WC_CCVOnlinePayments_Cache($pluginVersion),
+            new WC_CCVOnlinePayments_Cache($this->getPluginVersion()),
             new WC_CCVOnlinePayments_Logger(),
-            get_option("ccvonlinepayments_api_key")
+            $this->apiKey
         );
 
         global $wp_version, $woocommerce;
         $this->api->setMetadata([
-            "CCVOnlinePayments" => $pluginVersion,
+            "CCVOnlinePayments" => $this->getPluginVersion(),
             "Wordpress"         => $wp_version,
             "Woocommerce"       => $woocommerce->version
         ]);
+    }
+
+    public function reconnectOnApiKeyChange() {
+        if($this->apiKey !== get_option("ccvonlinepayments_api_key")) {
+            $this->connect();
+        }
+    }
+
+    private function getPluginVersion() {
+        $pluginData = get_file_data(__DIR__."/ccvonlinepayments.php", ["Version" => "Version"]);
+        return $pluginData['Version'];
     }
 
     /**

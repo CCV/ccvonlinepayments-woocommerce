@@ -5,7 +5,7 @@
  * Description: Official CCV Payment Services plugin for WooCommerce
  * Author: CCV Online Payments
  * Author URI: https://www.ccv.eu/nl/betaaloplossingen/betaaloplossingen-online/ccv-online-payments/
- * Version: 1.6.1
+ * Version: 1.6.2
  * Requires at least: 5.4
  * Tested up to: 6.6.1
  * WC requires at least: 4.2
@@ -91,6 +91,11 @@ function ccvonlinepayments_add_generic_settings($settings) {
             'type'      => 'sectionend',
         )
     ));
+}
+
+add_filter("update_option_ccvonlinepayments_api_key", "ccvonlinepayments_on_api_key_update");
+function ccvonlinepayments_on_api_key_update() {
+    WC_CCVOnlinePayments::get()->reconnectOnApiKeyChange();
 }
 
 add_action("woocommerce_api_ccvonlinepayments_webhook", array(WC_CCVOnlinePayments::class, "doWebhook"));
