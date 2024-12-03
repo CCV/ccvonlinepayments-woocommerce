@@ -5,7 +5,7 @@
  * Description: Official CCV Payment Services plugin for WooCommerce
  * Author: CCV Online Payments
  * Author URI: https://www.ccv.eu/nl/betaaloplossingen/betaaloplossingen-online/ccv-online-payments/
- * Version: 1.6.2
+ * Version: 1.7.0
  * Requires at least: 5.4
  * Tested up to: 6.6.1
  * WC requires at least: 4.2
@@ -15,6 +15,8 @@
 const CCVONLINEPAYMENTS_MIN_PHP_VERSION  = "7.2.0";
 const CCVONLINEPAYMENTS_DATABASE_VERSION = "3";
 const CCVONLINEPAYMENTS_DATABASE_VERSION_PARAMETER_NAME = "ccvonlinepayments-db-version";
+
+use Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry;
 
 register_activation_hook(__FILE__, 'ccvonlinepayments_install');
 function ccvonlinepayments_install($networkWide) {
@@ -61,6 +63,12 @@ function ccvonlinepayments_updateDb() {
     update_option(CCVONLINEPAYMENTS_DATABASE_VERSION_PARAMETER_NAME, CCVONLINEPAYMENTS_DATABASE_VERSION);
 }
 
+add_action( 'before_woocommerce_init', function() {
+    if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+    }
+});
+
 add_filter( 'woocommerce_payment_gateways', 'ccvonlinepayments_add_gateway_class' );
 function ccvonlinepayments_add_gateway_class( $gateways ) {
     foreach(\CCVOnlinePayments\Lib\CcvOnlinePaymentsApi::getSortedMethodIds(get_option( 'woocommerce_default_country')) as $gateway) {
@@ -69,6 +77,25 @@ function ccvonlinepayments_add_gateway_class( $gateways ) {
 
     return $gateways;
 }
+
+add_action(
+    'woocommerce_blocks_payment_method_type_registration',
+    function( PaymentMethodRegistry $payment_method_registry ) {
+        require __DIR__."/PaymentMethods/CCVPaymentMethod.php";
+        foreach(\CCVOnlinePayments\Lib\CcvOnlinePaymentsApi::getSortedMethodIds(get_option( 'woocommerce_default_country')) as $gateway) {
+            $file = __DIR__."/PaymentMethods/".ucwords($gateway,"_").".php";
+            if(!file_exists($file)) {
+                continue;
+            }
+            require $file;
+
+            $fqcn = '\\CCVOnlinePayments\\PaymentMethods\\'.ucwords($gateway,"_");
+            if(class_exists($fqcn)) {
+                $payment_method_registry->register(new $fqcn());
+            }
+        }
+    }
+);
 
 add_filter("woocommerce_payment_gateways_settings", 'ccvonlinepayments_add_generic_settings');
 function ccvonlinepayments_add_generic_settings($settings) {
