@@ -107,7 +107,7 @@ class WC_CCVOnlinePayments {
                     throw new \Exception("Invalid order number");
                 }
 
-                $retry = $_GET['ccvRetry'] ? intval($_GET['ccvRetry']) : 1;
+                $retry = isset($_GET['ccvRetry']) ? intval($_GET['ccvRetry']) : 1;
                 if($retry < 4 && !self::isOrderStatusCurrent($order, $payment)) {
                     return self::renderWaitingPage($retry);
                 }

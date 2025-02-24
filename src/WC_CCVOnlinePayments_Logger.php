@@ -2,55 +2,54 @@
 
 class WC_CCVOnlinePayments_Logger implements \Psr\Log\LoggerInterface {
 
-    /** @var WC_Logger */
-    private $logger;
+    private WC_Logger $logger;
 
     public function __construct()
     {
         $this->logger = wc_get_logger();
     }
 
-    public function emergency($message, array $context = array())
+    public function emergency(Stringable|string $message, array $context = array()) : void
     {
         $this->logger->emergency($this->contextToMessage($message, $context), []);
     }
 
-    public function alert($message, array $context = array())
+    public function alert(Stringable|string $message, array $context = array()) : void
     {
         $this->logger->alert($this->contextToMessage($message, $context), []);
     }
 
-    public function critical($message, array $context = array())
+    public function critical(Stringable|string $message, array $context = array()) : void
     {
         $this->logger->critical($this->contextToMessage($message, $context), []);
     }
 
-    public function error($message, array $context = array())
+    public function error(Stringable|string $message, array $context = array()) : void
     {
         $this->logger->error($this->contextToMessage($message, $context), []);
     }
 
-    public function warning($message, array $context = array())
+    public function warning(Stringable|string $message, array $context = array()) : void
     {
         $this->logger->warning($this->contextToMessage($message, $context), []);
     }
 
-    public function notice($message, array $context = array())
+    public function notice(Stringable|string $message, array $context = array()) : void
     {
         $this->logger->notice($this->contextToMessage($message, $context), []);
     }
 
-    public function info($message, array $context = array())
+    public function info(Stringable|string $message, array $context = array()) : void
     {
         $this->logger->info($this->contextToMessage($message, $context), []);
     }
 
-    public function debug($message, array $context = array())
+    public function debug(Stringable|string $message, array $context = array()) : void
     {
         $this->logger->debug($this->contextToMessage($message, $context), []);
     }
 
-    public function log($level, $message, array $context = array())
+    public function log(mixed $level, Stringable|string $message, array $context = array()) : void
     {
         $this->logger->log($level, $this->contextToMessage($message, $context), []);
     }

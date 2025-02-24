@@ -5,14 +5,14 @@
  * Description: Official CCV Payment Services plugin for WooCommerce
  * Author: CCV Online Payments
  * Author URI: https://www.ccv.eu/nl/betaaloplossingen/betaaloplossingen-online/ccv-online-payments/
- * Version: 1.7.0
+ * Version: 1.8.0
  * Requires at least: 5.4
- * Tested up to: 6.6.1
+ * Tested up to: 6.7.1
  * WC requires at least: 4.2
- * WC tested up to: 9.1.2
+ * WC tested up to: 9.5.1
  */
 
-const CCVONLINEPAYMENTS_MIN_PHP_VERSION  = "7.2.0";
+const CCVONLINEPAYMENTS_MIN_PHP_VERSION  = "8.1.0";
 const CCVONLINEPAYMENTS_DATABASE_VERSION = "3";
 const CCVONLINEPAYMENTS_DATABASE_VERSION_PARAMETER_NAME = "ccvonlinepayments-db-version";
 
@@ -63,13 +63,6 @@ function ccvonlinepayments_updateDb() {
     update_option(CCVONLINEPAYMENTS_DATABASE_VERSION_PARAMETER_NAME, CCVONLINEPAYMENTS_DATABASE_VERSION);
 }
 
-add_action( 'before_woocommerce_init', function() {
-    if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
-        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
-    }
-});
-
-add_filter( 'woocommerce_payment_gateways', 'ccvonlinepayments_add_gateway_class' );
 function ccvonlinepayments_add_gateway_class( $gateways ) {
     foreach(\CCVOnlinePayments\Lib\CcvOnlinePaymentsApi::getSortedMethodIds(get_option( 'woocommerce_default_country')) as $gateway) {
         $gateways[] = 'WC_CcvOnlinePayments_Gateway_'.ucwords($gateway,"_");
@@ -78,26 +71,6 @@ function ccvonlinepayments_add_gateway_class( $gateways ) {
     return $gateways;
 }
 
-add_action(
-    'woocommerce_blocks_payment_method_type_registration',
-    function( PaymentMethodRegistry $payment_method_registry ) {
-        require __DIR__."/PaymentMethods/CCVPaymentMethod.php";
-        foreach(\CCVOnlinePayments\Lib\CcvOnlinePaymentsApi::getSortedMethodIds(get_option( 'woocommerce_default_country')) as $gateway) {
-            $file = __DIR__."/PaymentMethods/".ucwords($gateway,"_").".php";
-            if(!file_exists($file)) {
-                continue;
-            }
-            require $file;
-
-            $fqcn = '\\CCVOnlinePayments\\PaymentMethods\\'.ucwords($gateway,"_");
-            if(class_exists($fqcn)) {
-                $payment_method_registry->register(new $fqcn());
-            }
-        }
-    }
-);
-
-add_filter("woocommerce_payment_gateways_settings", 'ccvonlinepayments_add_generic_settings');
 function ccvonlinepayments_add_generic_settings($settings) {
     $apiKeyStyle = "width: 400px";
     return array_merge($settings, array(
@@ -120,15 +93,9 @@ function ccvonlinepayments_add_generic_settings($settings) {
     ));
 }
 
-add_filter("update_option_ccvonlinepayments_api_key", "ccvonlinepayments_on_api_key_update");
 function ccvonlinepayments_on_api_key_update() {
     WC_CCVOnlinePayments::get()->reconnectOnApiKeyChange();
 }
-
-add_action("woocommerce_api_ccvonlinepayments_webhook", array(WC_CCVOnlinePayments::class, "doWebhook"));
-add_action("woocommerce_api_ccvonlinepayments_return", array(WC_CCVOnlinePayments::class, "doReturn"));
-
-add_filter("the_content", array(WC_CCVOnlinePayments::class, "doCatchThankYouPage"));
 
 add_action( 'plugins_loaded', 'ccvonlinepayments_init' );
 function ccvonlinepayments_init() {
@@ -181,6 +148,42 @@ function ccvonlinepayments_init() {
 
     // Capture order
     add_action( 'woocommerce_order_status_completed', 'ccvonlinepayments_capture_order' );
+
+    add_action( 'before_woocommerce_init', function() {
+        if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+            \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+        }
+    });
+
+    add_filter( 'woocommerce_payment_gateways', 'ccvonlinepayments_add_gateway_class' );
+
+    add_action(
+        'woocommerce_blocks_payment_method_type_registration',
+        function( PaymentMethodRegistry $payment_method_registry ) {
+            require __DIR__."/PaymentMethods/CCVPaymentMethod.php";
+            foreach(\CCVOnlinePayments\Lib\CcvOnlinePaymentsApi::getSortedMethodIds(get_option( 'woocommerce_default_country')) as $gateway) {
+                $file = __DIR__."/PaymentMethods/".ucwords($gateway,"_").".php";
+                if(!file_exists($file)) {
+                    continue;
+                }
+                require $file;
+
+                $fqcn = '\\CCVOnlinePayments\\PaymentMethods\\'.ucwords($gateway,"_");
+                if(class_exists($fqcn)) {
+                    $payment_method_registry->register(new $fqcn());
+                }
+            }
+        }
+    );
+
+    add_filter("woocommerce_payment_gateways_settings", 'ccvonlinepayments_add_generic_settings');
+
+    add_filter("update_option_ccvonlinepayments_api_key", "ccvonlinepayments_on_api_key_update");
+
+    add_action("woocommerce_api_ccvonlinepayments_webhook", array(WC_CCVOnlinePayments::class, "doWebhook"));
+    add_action("woocommerce_api_ccvonlinepayments_return", array(WC_CCVOnlinePayments::class, "doReturn"));
+
+    add_filter("the_content", array(WC_CCVOnlinePayments::class, "doCatchThankYouPage"));
 }
 
 function ccvonlinepayments_incompatible_php_version() {

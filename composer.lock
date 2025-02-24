@@ -4,35 +4,35 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2162a7ffe99c97ab534b213008af0242",
+    "content-hash": "4c6e487b7fff98fc0277a51a4bf1f6fd",
     "packages": [
         {
             "name": "brick/phonenumber",
-            "version": "0.1.0",
+            "version": "0.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brick/phonenumber.git",
-                "reference": "7ac87e8fb20c22a2902882f65455167b81c19977"
+                "reference": "66331c3db851544a76908b83b8a250a738690c14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brick/phonenumber/zipball/7ac87e8fb20c22a2902882f65455167b81c19977",
-                "reference": "7ac87e8fb20c22a2902882f65455167b81c19977",
+                "url": "https://api.github.com/repos/brick/phonenumber/zipball/66331c3db851544a76908b83b8a250a738690c14",
+                "reference": "66331c3db851544a76908b83b8a250a738690c14",
                 "shasum": ""
             },
             "require": {
-                "giggsey/libphonenumber-for-php": "7.*|8.*",
-                "php": ">=5.6"
+                "giggsey/libphonenumber-for-php": "^7.0 || ^8.0",
+                "php": "^8.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "5.*",
-                "satooshi/php-coveralls": "1.*"
+                "php-coveralls/php-coveralls": "^2.0",
+                "phpunit/phpunit": "^10.4",
+                "vimeo/psalm": "5.16.0"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Brick\\PhoneNumber\\": "src/",
-                    "Brick\\PhoneNumber\\Tests\\": "tests/"
+                    "Brick\\PhoneNumber\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -48,31 +48,31 @@
             ],
             "support": {
                 "issues": "https://github.com/brick/phonenumber/issues",
-                "source": "https://github.com/brick/phonenumber/tree/master"
+                "source": "https://github.com/brick/phonenumber/tree/0.6.0"
             },
-            "time": "2017-04-05T12:29:50+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/BenMorel",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-11-26T21:57:45+00:00"
         },
         {
             "name": "ccv/php-lib",
-            "version": "1.3.9",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/CCV/ccvonlinepayments-php-lib.git",
+            "version": "1.4.0",
+            "dist": {
+                "type": "path",
+                "url": "../lib",
                 "reference": "2378ffb1f4874bd4ae5759fafb53f4346ea5635d"
             },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/CCV/ccvonlinepayments-php-lib/zipball/2378ffb1f4874bd4ae5759fafb53f4346ea5635d",
-                "reference": "2378ffb1f4874bd4ae5759fafb53f4346ea5635d",
-                "shasum": ""
-            },
             "require": {
-                "brick/phonenumber": "0.1.*",
+                "brick/phonenumber": "^0.6",
                 "ext-curl": "*",
                 "ext-json": "*",
-                "php": ">=7.2.0",
-                "php-curl-class/php-curl-class": "^8.8|^9.0",
-                "psr/log": "^1.1"
+                "php": ">=8.1.0",
+                "php-curl-class/php-curl-class": "^11",
+                "psr/log": "^1|^2|^3"
             },
             "type": "library",
             "autoload": {
@@ -80,7 +80,6 @@
                     "CCVOnlinePayments\\Lib\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -92,39 +91,42 @@
                 "payments",
                 "php"
             ],
-            "support": {
-                "issues": "https://github.com/CCV/ccvonlinepayments-php-lib/issues",
-                "source": "https://github.com/CCV/ccvonlinepayments-php-lib/tree/v1.3.9"
-            },
-            "time": "2024-07-29T08:31:10+00:00"
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "giggsey/libphonenumber-for-php",
-            "version": "8.13.30",
+            "version": "8.13.52",
             "source": {
                 "type": "git",
                 "url": "https://github.com/giggsey/libphonenumber-for-php.git",
-                "reference": "e09260a4a470b3737877c0f04f964e8a4938ebbd"
+                "reference": "cc9a82b237d79a85be47c0b06e3943f75ab35c32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/e09260a4a470b3737877c0f04f964e8a4938ebbd",
-                "reference": "e09260a4a470b3737877c0f04f964e8a4938ebbd",
+                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/cc9a82b237d79a85be47c0b06e3943f75ab35c32",
+                "reference": "cc9a82b237d79a85be47c0b06e3943f75ab35c32",
                 "shasum": ""
             },
             "require": {
-                "giggsey/locale": "^1.7|^2.0",
-                "php": ">=5.3.2",
+                "giggsey/locale": "^2.0",
+                "php": "^7.4|^8.0",
                 "symfony/polyfill-mbstring": "^1.17"
             },
+            "replace": {
+                "giggsey/libphonenumber-for-php-lite": "self.version"
+            },
             "require-dev": {
-                "pear/pear-core-minimal": "^1.9",
+                "friendsofphp/php-cs-fixer": "^3.64",
+                "pear/pear-core-minimal": "^1.10",
                 "pear/pear_exception": "^1.0",
-                "pear/versioncontrol_git": "^0.5",
-                "phing/phing": "^2.7",
-                "php-coveralls/php-coveralls": "^1.0|^2.0",
-                "symfony/console": "^2.8|^3.0|^v4.4|^v5.2",
-                "symfony/phpunit-bridge": "^4.2 || ^5"
+                "pear/versioncontrol_git": "^0.7",
+                "phing/phing": "^3.0",
+                "php-coveralls/php-coveralls": "^2.0",
+                "phpunit/phpunit": "^9.6",
+                "symfony/console": "^v5.2",
+                "symfony/var-exporter": "^5.2"
             },
             "type": "library",
             "extra": {
@@ -168,27 +170,28 @@
                 "issues": "https://github.com/giggsey/libphonenumber-for-php/issues",
                 "source": "https://github.com/giggsey/libphonenumber-for-php"
             },
-            "time": "2024-02-09T12:16:23+00:00"
+            "time": "2024-12-13T09:08:43+00:00"
         },
         {
             "name": "giggsey/locale",
-            "version": "2.5",
+            "version": "2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/giggsey/Locale.git",
-                "reference": "e6d4540109a01dd2bc7334cdc842d6a6a67cf239"
+                "reference": "a5c65ea3c2630f27ccb78977990eefbee6dd8f97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/Locale/zipball/e6d4540109a01dd2bc7334cdc842d6a6a67cf239",
-                "reference": "e6d4540109a01dd2bc7334cdc842d6a6a67cf239",
+                "url": "https://api.github.com/repos/giggsey/Locale/zipball/a5c65ea3c2630f27ccb78977990eefbee6dd8f97",
+                "reference": "a5c65ea3c2630f27ccb78977990eefbee6dd8f97",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2"
+                "php": "^7.4|^8.0"
             },
             "require-dev": {
                 "ext-json": "*",
+                "friendsofphp/php-cs-fixer": "^3.64",
                 "pear/pear-core-minimal": "^1.9",
                 "pear/pear_exception": "^1.0",
                 "pear/versioncontrol_git": "^0.5",
@@ -198,7 +201,8 @@
                 "symfony/console": "^5.0|^6.0",
                 "symfony/filesystem": "^5.0|^6.0",
                 "symfony/finder": "^5.0|^6.0",
-                "symfony/process": "^5.0|^6.0"
+                "symfony/process": "^5.0|^6.0",
+                "symfony/var-exporter": "^5.2|^6.0"
             },
             "type": "library",
             "autoload": {
@@ -220,27 +224,27 @@
             "description": "Locale functions required by libphonenumber-for-php",
             "support": {
                 "issues": "https://github.com/giggsey/Locale/issues",
-                "source": "https://github.com/giggsey/Locale/tree/2.5"
+                "source": "https://github.com/giggsey/Locale/tree/2.7.0"
             },
-            "time": "2023-11-01T17:19:48+00:00"
+            "time": "2024-11-04T11:18:07+00:00"
         },
         {
             "name": "php-curl-class/php-curl-class",
-            "version": "9.19.0",
+            "version": "11.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-curl-class/php-curl-class.git",
-                "reference": "8e9cd0caff462a0d602d4724e76acf837d0b1a2d"
+                "reference": "db6f650c474c9ee01675f7657b2390eba9520e1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/8e9cd0caff462a0d602d4724e76acf837d0b1a2d",
-                "reference": "8e9cd0caff462a0d602d4724e76acf837d0b1a2d",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/db6f650c474c9ee01675f7657b2390eba9520e1a",
+                "reference": "db6f650c474c9ee01675f7657b2390eba9520e1a",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
-                "php": ">=7.0"
+                "php": ">=7.4"
             },
             "require-dev": {
                 "dealerdirect/phpcodesniffer-composer-installer": "*",
@@ -250,7 +254,7 @@
                 "phpcsstandards/phpcsutils": "@alpha",
                 "phpunit/phpunit": "*",
                 "squizlabs/php_codesniffer": "*",
-                "vimeo/psalm": "*"
+                "vimeo/psalm": ">=5.25.0"
             },
             "suggest": {
                 "ext-mbstring": "*"
@@ -300,36 +304,36 @@
             ],
             "support": {
                 "issues": "https://github.com/php-curl-class/php-curl-class/issues",
-                "source": "https://github.com/php-curl-class/php-curl-class/tree/9.19.0"
+                "source": "https://github.com/php-curl-class/php-curl-class/tree/11.0.0"
             },
-            "time": "2024-01-18T18:03:34+00:00"
+            "time": "2024-08-22T18:03:48+00:00"
         },
         {
             "name": "psr/log",
-            "version": "1.1.4",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "d49695b909c3b7628b6289db5479a1c204601f11"
+                "reference": "f16e1d5863e37f8d8c2a01719f5b34baa2b714d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/d49695b909c3b7628b6289db5479a1c204601f11",
-                "reference": "d49695b909c3b7628b6289db5479a1c204601f11",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/f16e1d5863e37f8d8c2a01719f5b34baa2b714d3",
+                "reference": "f16e1d5863e37f8d8c2a01719f5b34baa2b714d3",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=8.0.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "3.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Psr\\Log\\": "Psr/Log/"
+                    "Psr\\Log\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -350,26 +354,26 @@
                 "psr-3"
             ],
             "support": {
-                "source": "https://github.com/php-fig/log/tree/1.1.4"
+                "source": "https://github.com/php-fig/log/tree/3.0.2"
             },
-            "time": "2021-05-03T11:20:27+00:00"
+            "time": "2024-09-11T13:17:53+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.29.0",
+            "version": "v1.31.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "9773676c8a1bb1f8d4340a62efe641cf76eda7ec"
+                "reference": "85181ba99b2345b0ef10ce42ecac37612d9fd341"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/9773676c8a1bb1f8d4340a62efe641cf76eda7ec",
-                "reference": "9773676c8a1bb1f8d4340a62efe641cf76eda7ec",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/85181ba99b2345b0ef10ce42ecac37612d9fd341",
+                "reference": "85181ba99b2345b0ef10ce42ecac37612d9fd341",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "php": ">=7.2"
             },
             "provide": {
                 "ext-mbstring": "*"
@@ -380,8 +384,8 @@
             "type": "library",
             "extra": {
                 "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
                 }
             },
             "autoload": {
@@ -416,7 +420,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.29.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.31.0"
             },
             "funding": [
                 {
@@ -432,7 +436,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-29T20:11:03+00:00"
+            "time": "2024-09-09T11:45:10+00:00"
         }
     ],
     "packages-dev": [
@@ -472,10 +476,10 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
+    "platform": {},
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
