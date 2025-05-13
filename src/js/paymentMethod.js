@@ -10,7 +10,7 @@ const ccvPaymentMethod = (paymentMethodName) => {
                 null,
                 window.wp.element.createElement("img", {
                     src: data.icon,
-                    alt: data.title,
+                    alt: "",
                     style: { float: 'left', marginRight: '10px', minWidth: "80px", objectPosition: "center" }
                 }),
                 "  " + data.title
