@@ -2,29 +2,37 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ccvonlinepayments\n"
 "POT-Creation-Date: 2021-08-02T15:25:21+02:00\n"
-"PO-Revision-Date: 2024-07-26T09:36:00+02:00\n"
-"Language: be_BE\n"
+"PO-Revision-Date: 2025-05-13 13:10+0000\n"
+"Language: nl-BE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"\n"
+"Language-Team: Dutch (Belgium)\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Loco https://localise.biz/"
 
 #: Gateways/WC_CcvOnlinePayments_Gateway_Card_Amex.php:10
+#: PaymentMethods/Card_Amex.php:8
 msgid "American Express"
 msgstr "American Express"
 
-#: ccvonlinepayments.php:84
+#: Settings/CCVPaymentsSettingsPage.php:39
 msgid "API key"
 msgstr "API key"
 
 #: Gateways/WC_CcvOnlinePayments_Gateway_Applepay.php:10
+#: PaymentMethods/Applepay.php:8
 msgid "Apple Pay"
 msgstr "Apple Pay"
 
 #: Gateways/WC_CcvOnlinePayments_Gateway_Card_Bcmc.php:10
+#: PaymentMethods/Card_Bcmc.php:8
 msgid "Bancontact"
 msgstr "Bancontact"
 
 #: Gateways/WC_CcvOnlinePayments_Gateway_Banktransfer.php:10
+#: PaymentMethods/Banktransfer.php:8
 msgid "Bank Transfer"
 msgstr "Overschrijving"
 
@@ -36,43 +44,68 @@ msgstr "CCV Online Payments"
 msgid "CCV Online Payments for Woocommerce"
 msgstr "CCV Online Payments voor Woocommerce"
 
-#: ccvonlinepayments.php:79
+#: Settings/CCVPaymentsSettingsPage.php:34
 msgid "CCV Online Payments Settings"
 msgstr "CCV Online Payments Instellingen"
 
-#: Gateways/WC_CcvOnlinePayments_Gateway.php:66
+#: Settings/CCVPaymentsSettingsPage.php:10
+msgid "CCV Payments"
+msgstr "CCV Payments"
+
+#: Gateways/WC_CcvOnlinePayments_Gateway.php:72
 msgid "Choose your bank..."
 msgstr "Kies uw bank..."
 
-#: ccvonlinepayments.php:305
+#: ccvonlinepayments.php:326
 msgid "Could not capture payment."
 msgstr "Kon de betaling niet vastleggen"
 
-#: Gateways/WC_CcvOnlinePayments_Gateway.php:43
+#: Gateways/WC_CcvOnlinePayments_Gateway.php:49
 msgid "Description"
 msgstr "Omschrijving"
 
 #: Gateways/WC_CcvOnlinePayments_Gateway_Eps.php:10
+#: PaymentMethods/Card_Eps.php:8
 msgid "Eps"
 msgstr "Eps"
 
 #: Gateways/WC_CcvOnlinePayments_Gateway_Giropay.php:10
+#: PaymentMethods/Giropay.php:8
 msgid "Giropay"
 msgstr "Giropay"
 
+#: Gateways/WC_CcvOnlinePayments_Gateway_Googlepay.php:10
+#: PaymentMethods/Googlepay.php:8
+msgid "Google Pay"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://github.com/CCV/ccvonlinepayments-woocommerce"
+msgstr ""
+
+#. Author URI of the plugin
+msgid ""
+"https://www.ccv.eu/nl/betaaloplossingen/betaaloplossingen-online/ccv-online-"
+"payments/"
+msgstr ""
+
 #: Gateways/WC_CcvOnlinePayments_Gateway_Ideal.php:10
+#: PaymentMethods/Ideal.php:8
 msgid "iDeal"
 msgstr "iDeal"
 
 #: Gateways/WC_CcvOnlinePayments_Gateway_Klarna.php:10
+#: PaymentMethods/Klarna.php:8
 msgid "Klarna"
 msgstr "Klarna"
 
 #: Gateways/WC_CcvOnlinePayments_Gateway_Card_Maestro.php:10
+#: PaymentMethods/Card_Maestro.php:8
 msgid "Maestro"
 msgstr "Maestro"
 
 #: Gateways/WC_CcvOnlinePayments_Gateway_Card_Mastercard.php:10
+#: PaymentMethods/Card_Mastercard.php:8
 msgid "Mastercard"
 msgstr "Mastercard"
 
@@ -80,30 +113,41 @@ msgstr "Mastercard"
 msgid "Official CCV Payment Services plugin for WooCommerce"
 msgstr "Officiële CCV Payment Services-plug-in voor WooCommerce"
 
-#: WC_CCVOnlinePayments.php:163
+#: WC_CCVOnlinePayments.php:184
 msgid "Payment was cancelled."
 msgstr "Betaling is geannuleerd."
 
 #: Gateways/WC_CcvOnlinePayments_Gateway_Paypal.php:10
+#: PaymentMethods/Paypal.php:8
 msgid "Paypal"
 msgstr "Paypal"
 
-#: WC_CCVOnlinePayments.php:105
+#: WC_CCVOnlinePayments.php:121
 msgid "Please wait"
 msgstr "Even geduld"
 
 #: Gateways/WC_CcvOnlinePayments_Gateway_Sofort.php:10
+#: PaymentMethods/Sofort.php:8
 msgid "Sofort"
 msgstr "Sofort"
 
-#: Gateways/WC_CcvOnlinePayments_Gateway.php:37
+#: Settings/CCVPaymentsSettingsPage.php:19
+msgid "The api key is correct."
+msgstr "De api key is geldig."
+
+#: Settings/CCVPaymentsSettingsPage.php:23
+msgid "The api key is invalid."
+msgstr "De api key is ongeldig."
+
+#: Gateways/WC_CcvOnlinePayments_Gateway.php:43
 msgid "Title"
 msgstr "Titel"
 
 #: Gateways/WC_CcvOnlinePayments_Gateway_Card_Visa.php:10
+#: PaymentMethods/Card_Visa.php:8
 msgid "Visa"
 msgstr "Visa"
 
-#: WC_CCVOnlinePayments.php:106
+#: WC_CCVOnlinePayments.php:122
 msgid "Your payment status is being processed."
 msgstr "Uw betalingsstatus wordt verwerkt."

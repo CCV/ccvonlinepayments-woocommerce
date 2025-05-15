@@ -5,11 +5,11 @@
  * Description: Official CCV Payment Services plugin for WooCommerce
  * Author: CCV Online Payments
  * Author URI: https://www.ccv.eu/nl/betaaloplossingen/betaaloplossingen-online/ccv-online-payments/
- * Version: 1.8.0
+ * Version: 1.9.0
  * Requires at least: 5.4
- * Tested up to: 6.7.1
+ * Tested up to: 6.8.1
  * WC requires at least: 4.2
- * WC tested up to: 9.5.1
+ * WC tested up to: 9.8.5
  */
 
 const CCVONLINEPAYMENTS_MIN_PHP_VERSION  = "8.1.0";
@@ -71,26 +71,12 @@ function ccvonlinepayments_add_gateway_class( $gateways ) {
     return $gateways;
 }
 
-function ccvonlinepayments_add_generic_settings($settings) {
-    $apiKeyStyle = "width: 400px";
-    return array_merge($settings, array(
-        array(
-            'id'        => 'ccvonlinepayments_title',
-            'title'     => __('CCV Online Payments Settings', 'ccvonlinepayments'),
-            'type'      => 'title'
-        ),
-        array(
-            'id'        => 'ccvonlinepayments_api_key',
-            'title'     => __('API key', 'ccvonlinepayments'),
-            'default'   => '',
-            'type'      => 'text',
-            'css'       => $apiKeyStyle,
-        ),
-        array(
-            'id'        => 'ccvonlinepayments_sectionend',
-            'type'      => 'sectionend',
-        )
-    ));
+function ccvonlinepayments_get_settings_pages($settings) {
+    require __DIR__."/Settings/CCVPaymentsSettingsPage.php";
+
+    $settings[] = new CCVPaymentsSettingsPage();
+
+    return $settings;
 }
 
 function ccvonlinepayments_on_api_key_update() {
@@ -176,7 +162,7 @@ function ccvonlinepayments_init() {
         }
     );
 
-    add_filter("woocommerce_payment_gateways_settings", 'ccvonlinepayments_add_generic_settings');
+    add_filter("woocommerce_get_settings_pages", 'ccvonlinepayments_get_settings_pages');
 
     add_filter("update_option_ccvonlinepayments_api_key", "ccvonlinepayments_on_api_key_update");
 

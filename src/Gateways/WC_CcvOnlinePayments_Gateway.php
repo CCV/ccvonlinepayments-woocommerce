@@ -33,6 +33,12 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
 
     public function init_form_fields(){
         $this->form_fields = array(
+            'enabled' => array(
+                'title' => __( 'Enable/Disable', 'woocommerce' ),
+                'type' => 'checkbox',
+                'label' => __( 'Enable', 'woocommerce' )." ".$this->getDefaultTitle(),
+                'default' => 'yes'
+            ),
             'title' => array(
                 'title'       => __('Title', 'ccvonlinepayments'),
                 'type'        => 'text',
