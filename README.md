@@ -46,10 +46,10 @@ To upgrade the WooCommerce plugin, simply re-do the chapters Download and Instal
 # Configure
 In WooCommerce Admin:
 1.	Click on Settings
-2.	Click on Payments
+2.	Click on "CCV Payments" tab
 3.	Get your LIVE API key from your My CCV account
 4.	Enter the API key
-5.	Activate the desired payment methods
+5.	Activate the desired payment methods in "Paymants" tab
 6.	Click on save changes twice
 
 # Release notes
