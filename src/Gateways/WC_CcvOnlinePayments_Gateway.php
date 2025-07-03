@@ -307,7 +307,7 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
     private function getReferenceForRefund($order) {
         global $wpdb;
         $payment = $wpdb->get_row( $wpdb->prepare(
-            'SELECT payment_reference, transaction_type, capture_reference FROM '.$wpdb->prefix.'ccvonlinepayments_payments WHERE order_number=%s', $order->get_order_number())
+            'SELECT payment_reference, transaction_type, capture_reference FROM '.$wpdb->prefix.'ccvonlinepayments_payments WHERE status="success" AND order_number=%s', $order->get_order_number())
         );
 
         if($payment === null) {
