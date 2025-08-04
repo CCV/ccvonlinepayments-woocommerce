@@ -1,0 +1,12 @@
+parameters:
+	level: 8
+	phpVersion: 80100
+	paths:
+		- src
+	bootstrapFiles:
+		- vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
+	ignoreErrors:
+		- '#Path in require_once\(\)#'
+
+includes:
+	- vendor/szepeviktor/phpstan-wordpress/extension.neon

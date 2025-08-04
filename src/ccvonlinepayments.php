@@ -5,11 +5,11 @@
  * Description: Official CCV Payment Services plugin for WooCommerce
  * Author: CCV Online Payments
  * Author URI: https://www.ccv.eu/nl/betaaloplossingen/betaaloplossingen-online/ccv-online-payments/
- * Version: 1.9.1
+ * Version: 1.10.0
  * Requires at least: 5.4
- * Tested up to: 6.8.1
+ * Tested up to: 6.8.2
  * WC requires at least: 4.2
- * WC tested up to: 9.8.5
+ * WC tested up to: 10.0.4
  */
 
 const CCVONLINEPAYMENTS_MIN_PHP_VERSION  = "8.1.0";
@@ -19,7 +19,7 @@ const CCVONLINEPAYMENTS_DATABASE_VERSION_PARAMETER_NAME = "ccvonlinepayments-db-
 use Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry;
 
 register_activation_hook(__FILE__, 'ccvonlinepayments_install');
-function ccvonlinepayments_install($networkWide) {
+function ccvonlinepayments_install(bool $networkWide): void {
     global $wpdb;
 
     if(is_multisite() && $networkWide) {
@@ -34,7 +34,7 @@ function ccvonlinepayments_install($networkWide) {
     }
 }
 
-function ccvonlinepayments_new_blog($blogId) {
+function ccvonlinepayments_new_blog(int $blogId): void {
     if ( is_plugin_active_for_network( 'ccvonlinepayments/ccvonlinepayments.php' ) ) {
         switch_to_blog( $blogId );
         ccvonlinepayments_updateDb();
@@ -43,7 +43,7 @@ function ccvonlinepayments_new_blog($blogId) {
 }
 add_action( 'wpmu_new_blog', 'ccvonlinepayments_new_blog', 10, 1 );
 
-function ccvonlinepayments_updateDb() {
+function ccvonlinepayments_updateDb(): void {
     global $wpdb;
 
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -63,7 +63,11 @@ function ccvonlinepayments_updateDb() {
     update_option(CCVONLINEPAYMENTS_DATABASE_VERSION_PARAMETER_NAME, CCVONLINEPAYMENTS_DATABASE_VERSION);
 }
 
-function ccvonlinepayments_add_gateway_class( $gateways ) {
+/**
+ * @param array<int, string> $gateways
+ * @return array<int, string>
+ */
+function ccvonlinepayments_add_gateway_class(array $gateways): array {
     foreach(\CCVOnlinePayments\Lib\CcvOnlinePaymentsApi::getSortedMethodIds(get_option( 'woocommerce_default_country')) as $gateway) {
         $gateways[] = 'WC_CcvOnlinePayments_Gateway_'.ucwords($gateway,"_");
     }
@@ -71,7 +75,11 @@ function ccvonlinepayments_add_gateway_class( $gateways ) {
     return $gateways;
 }
 
-function ccvonlinepayments_get_settings_pages($settings) {
+/**
+ * @param array<WC_Settings_Page> $settings
+ * @return array<WC_Settings_Page>
+ */
+function ccvonlinepayments_get_settings_pages(array $settings): array {
     require __DIR__."/Settings/CCVPaymentsSettingsPage.php";
 
     $settings[] = new CCVPaymentsSettingsPage();
@@ -79,12 +87,13 @@ function ccvonlinepayments_get_settings_pages($settings) {
     return $settings;
 }
 
-function ccvonlinepayments_on_api_key_update() {
+function ccvonlinepayments_on_api_key_update(mixed $value): mixed {
     WC_CCVOnlinePayments::get()->reconnectOnApiKeyChange();
+    return $value;
 }
 
 add_action( 'plugins_loaded', 'ccvonlinepayments_init' );
-function ccvonlinepayments_init() {
+function ccvonlinepayments_init(): void {
     if(version_compare(PHP_VERSION, CCVONLINEPAYMENTS_MIN_PHP_VERSION, '<')) {
         add_action('admin_notices', 'ccvonlinepayments_incompatible_php_version');
         return;
@@ -156,7 +165,9 @@ function ccvonlinepayments_init() {
 
                 $fqcn = '\\CCVOnlinePayments\\PaymentMethods\\'.ucwords($gateway,"_");
                 if(class_exists($fqcn)) {
-                    $payment_method_registry->register(new $fqcn());
+                    /** @var Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType $paymentMethodType*/
+                    $paymentMethodType = new $fqcn();
+                    $payment_method_registry->register($paymentMethodType);
                 }
             }
         }
@@ -172,9 +183,9 @@ function ccvonlinepayments_init() {
     add_filter("the_content", array(WC_CCVOnlinePayments::class, "doCatchThankYouPage"));
 }
 
-function ccvonlinepayments_incompatible_php_version() {
+function ccvonlinepayments_incompatible_php_version(): void {
     if(!is_admin()) {
-        return false;
+        return;
     }
 
     echo '<div class="error"><p>';
@@ -182,13 +193,11 @@ function ccvonlinepayments_incompatible_php_version() {
             'CCV OnlinePayments requires PHP '.CCVONLINEPAYMENTS_MIN_PHP_VERSION.' or higher. Your PHP version is outdated. Upgrade your PHP version.'
         );
     echo '</p></div>';
-
-    return false;
 }
 
-function ccvonlinepayments_missing_curl() {
+function ccvonlinepayments_missing_curl(): void {
     if(!is_admin()) {
-        return false;
+        return;
     }
 
     echo '<div class="error"><p>';
@@ -196,11 +205,25 @@ function ccvonlinepayments_missing_curl() {
         'CCV OnlinePayments requires the curl php extension.'
         );
     echo '</p></div>';
-
-    return false;
 }
 
-function ccvonlinepayments_disable_gateways(array $gateways) {
+function ccvonlinepayments_woocommerce_not_installed() : void {
+    if(!is_admin()) {
+        return;
+    }
+
+    echo '<div class="error"><p>';
+    echo esc_html__(
+        'CCV OnlinePayments requires WooCommerce to be installed.'
+    );
+    echo '</p></div>';
+}
+
+/**
+ * @param array<string, mixed> $gateways
+ * @return array<string, mixed>
+ */
+function ccvonlinepayments_disable_gateways(array $gateways): array {
     $api = WC_CCVOnlinePayments::get()->getApi();
 
     $methodsAllowed = [];
@@ -225,12 +248,15 @@ function ccvonlinepayments_disable_gateways(array $gateways) {
     return $gateways;
 }
 
-function ccvonlinepayments_get_orderlines_by_order($order) {
+/**
+ * @return array<\CCVOnlinePayments\Lib\OrderLine>
+ */
+function ccvonlinepayments_get_orderlines_by_order(\WC_Order $order): array {
     $orderLines = [];
     foreach($order->get_items(['line_item', 'shipping', 'fee']) as $orderItem) {
         $orderLine = new \CCVOnlinePayments\Lib\OrderLine();
         if($orderItem instanceof \WC_Order_Item_Product) {
-            $orderLine->setType(\CCVOnlinePayments\Lib\OrderLine::TYPE_PHYSICAL);
+            $orderLine->setType(\CCVOnlinePayments\Lib\Enum\OrderLineType::PHYSICAL);
 
             if ( $orderItem->get_variation_id() ) {
                 $product = wc_get_product( $orderItem->get_variation_id() );
@@ -238,23 +264,23 @@ function ccvonlinepayments_get_orderlines_by_order($order) {
                 $product = wc_get_product( $orderItem->get_product_id() );
             }
 
-            if($product !== false) {
+            if($product !== false && $product !== null) {
                 if($product->is_virtual()) {
-                    $orderLine->setType(\CCVOnlinePayments\Lib\OrderLine::TYPE_DIGITAL);
+                    $orderLine->setType(\CCVOnlinePayments\Lib\Enum\OrderLineType::DIGITAL);
                 }
             }
         }elseif($orderItem instanceof \WC_Order_Item_Shipping) {
-            $orderLine->setType(\CCVOnlinePayments\Lib\OrderLine::TYPE_SHIPPING_FEE);
+            $orderLine->setType(\CCVOnlinePayments\Lib\Enum\OrderLineType::SHIPPING_FEE);
         }elseif($orderItem instanceof \WC_Order_Item_Fee) {
-            $orderLine->setType(\CCVOnlinePayments\Lib\OrderLine::TYPE_SURCHARGE);
+            $orderLine->setType(\CCVOnlinePayments\Lib\Enum\OrderLineType::SURCHARGE);
         }else{
             throw new \Exception("OrderLine not supported");
         }
 
         $orderLine->setName($orderItem->get_name());
         $orderLine->setQuantity($orderItem->get_quantity());
-        $orderLine->setUnitPrice(($orderItem->get_total() + $orderItem->get_total_tax())/$orderItem->get_quantity());
-        $orderLine->setTotalPrice($orderItem->get_total() + $orderItem->get_total_tax());
+        $orderLine->setUnitPrice((floatval($orderItem->get_total()) + floatval($orderItem->get_total_tax()))/$orderItem->get_quantity());
+        $orderLine->setTotalPrice(floatval($orderItem->get_total()) + floatval($orderItem->get_total_tax()));
         $orderLine->setVat($orderItem->get_total_tax());
         $orderLines[] = $orderLine;
     }
@@ -262,7 +288,7 @@ function ccvonlinepayments_get_orderlines_by_order($order) {
     return $orderLines;
 }
 
-function ccvonlinepayments_cancel_order($order_id) {
+function ccvonlinepayments_cancel_order(int $order_id): void {
     global $wpdb;
 
     $order = new WC_Order( $order_id );
@@ -274,25 +300,25 @@ function ccvonlinepayments_cancel_order($order_id) {
     $payment = $wpdb->get_row( $wpdb->prepare(
         'SELECT payment_reference, transaction_type FROM '.$wpdb->prefix.'ccvonlinepayments_payments WHERE order_number=%s ORDER BY payment_id DESC', $order->get_order_number())
     );
-    if($payment->transaction_type !== \CCVOnlinePayments\Lib\PaymentRequest::TRANSACTION_TYPE_AUTHORIZE) {
+    if($payment->transaction_type !== \CCVOnlinePayments\Lib\Enum\TransactionType::AUTHORIZE->value) {
         return;
     }
 
     $api = WC_CCVOnlinePayments::get()->getApi();
     $paymentStatus = $api->getPaymentStatus($payment->payment_reference);
-    if($paymentStatus->getStatus() === \CCVOnlinePayments\Lib\PaymentStatus::STATUS_SUCCESS) {
+    if($paymentStatus->getStatus() === \CCVOnlinePayments\Lib\Enum\PaymentStatus::SUCCESS) {
         $reversalRequest = new \CCVOnlinePayments\Lib\ReversalRequest();
         $reversalRequest->setReference($payment->payment_reference);
         $api->createReversal($reversalRequest);
     }
 }
 
-function ccvonlinepayments_capture_order($order_id) {
+function ccvonlinepayments_capture_order(int $order_id): void {
     global $wpdb;
 
     $order = new WC_Order( $order_id );
 
-    if(strpos($order->get_payment_method(),"ccvonlinepayments_") !== 0) {
+    if(!str_starts_with($order->get_payment_method(), "ccvonlinepayments_")) {
         return;
     }
 
@@ -303,15 +329,18 @@ function ccvonlinepayments_capture_order($order_id) {
     if($payment->payment_reference === null) {
         return;
     }
-    if($payment->transaction_type !== \CCVOnlinePayments\Lib\PaymentRequest::TRANSACTION_TYPE_AUTHORIZE) {
+    if($payment->transaction_type !== \CCVOnlinePayments\Lib\Enum\TransactionType::AUTHORIZE->value) {
         return;
     }
 
     $method = WC_CCVOnlinePayments::get()->getMethodById($order->get_payment_method());
+    if($method === null) {
+        return;
+    }
 
     $api = WC_CCVOnlinePayments::get()->getApi();
     $paymentStatus = $api->getPaymentStatus($payment->payment_reference);
-    if($paymentStatus->getStatus() === \CCVOnlinePayments\Lib\PaymentStatus::STATUS_SUCCESS) {
+    if($paymentStatus->getStatus() === \CCVOnlinePayments\Lib\Enum\PaymentStatus::SUCCESS) {
         $captureRequest = new \CCVOnlinePayments\Lib\CaptureRequest();
         $captureRequest->setReference($payment->payment_reference);
         $captureRequest->setAmount($order->get_total());

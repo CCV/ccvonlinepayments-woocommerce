@@ -6,7 +6,7 @@ class WC_CcvOnlinePayments_Gateway_Card_Amex extends WC_CcvOnlinePayments_Gatewa
         parent::__construct("card_amex");
     }
 
-    public function getDefaultTitle() {
+    public function getDefaultTitle() : string {
         return __("American Express", 'ccvonlinepayments');
     }
 }

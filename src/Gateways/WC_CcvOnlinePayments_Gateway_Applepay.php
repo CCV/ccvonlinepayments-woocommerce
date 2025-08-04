@@ -6,7 +6,7 @@ class WC_CcvOnlinePayments_Gateway_Applepay extends WC_CcvOnlinePayments_Gateway
         parent::__construct("applepay");
     }
 
-    public function getDefaultTitle() {
+    public function getDefaultTitle() : string {
         return __("Apple Pay", 'ccvonlinepayments');
     }
 }

@@ -12,7 +12,7 @@ class CCVPaymentsSettingsPage extends WC_Settings_Page {
         parent::__construct();
     }
 
-    public function output() {
+    public function output() : void {
         $api = WC_CCVOnlinePayments::get()->getApi();
         if($api->isKeyValid()) {
             echo '<div id="ccvOnlinePaymentsApiKeyValidMessage" class="updated inline"><p><strong>';
@@ -27,7 +27,10 @@ class CCVPaymentsSettingsPage extends WC_Settings_Page {
         parent::output();
     }
 
-    public function get_settings() {
+    /**
+     * @return array<array<string,string>>
+     */
+    public function get_settings() : array {
         return array(
             array(
                 'id'        => 'ccvonlinepayments_title',

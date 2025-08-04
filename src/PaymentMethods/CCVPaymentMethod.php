@@ -4,21 +4,24 @@ use Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodTyp
 
 abstract class CCVPaymentMethod extends AbstractPaymentMethodType {
 
-    public function initialize() {
+    public function initialize() : void {
         $this->settings = get_option($this->name."_settings");
     }
 
-    public abstract function getDefaultTitle();
+    public abstract function getDefaultTitle() : string;
 
-    public function getMethodShortName() {
+    public function getMethodShortName() :string {
         return str_replace("ccvonlinepayments_", "", $this->name);
     }
 
-    public function is_active() {
+    public function is_active() : bool {
         return filter_var( $this->get_setting( 'enabled', false ), FILTER_VALIDATE_BOOLEAN );
     }
 
-    public function get_payment_method_script_handles() {
+    /**
+     * @return array<string>
+     */
+    public function get_payment_method_script_handles() : array {
         wp_register_script(
             $this->name,
             '/wp-content/plugins/ccvonlinepayments/js/'.$this->getMethodShortName().'.js',
@@ -29,7 +32,10 @@ abstract class CCVPaymentMethod extends AbstractPaymentMethodType {
         return [ $this->name ];
     }
 
-    public function get_payment_method_data() {
+    /**
+     * @return array<string,mixed>
+     */
+    public function get_payment_method_data() : array {
         $method = $this->getMethodShortName();
 
         $icon = null;

@@ -4,9 +4,9 @@ use CCVOnlinePayments\Lib\Exception\ApiException;
 
 abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
 
-    public $methodId;
+    public string $methodId;
 
-    public function __construct($method) {
+    public function __construct(string $method) {
         $this->methodId             = $method;
         $this->plugin_id            = '';
         $this->id                   = "ccvonlinepayments_".$method;
@@ -28,10 +28,10 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
         $this->title        = $title;
         $this->description  = $this->get_option('description', $this->getDefaultDescription());
 
-        add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
+        add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'updateOptions' ) );
     }
 
-    public function init_form_fields(){
+    public function init_form_fields() : void {
         $this->form_fields = array(
             'enabled' => array(
                 'title' => __( 'Enable/Disable', 'woocommerce' ),
@@ -54,7 +54,7 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
         );
     }
 
-    public function payment_fields()
+    public function payment_fields() : void
     {
         parent::payment_fields();
 
@@ -63,7 +63,7 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
             return;
         }
 
-        $html  = "<input type='hidden' name='ccvonlinepayments_issuerkey_".$this->methodId."' value='".esc_html($method->getIssuerKey())."'>";
+        $html  = "<input type='hidden' name='ccvonlinepayments_issuerkey_".$this->methodId."' value='".esc_html($method->getIssuerKey()??"")."'>";
 
         if($method->getId() !== "ideal" && $method->getIssuers() !== null) {
             $html .= "<select name='ccvonlinepayments_issuer_".$this->methodId."'>";
@@ -75,7 +75,7 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
             }
 
             foreach($method->getIssuers() as $issuer) {
-                $html .= "<option value='".esc_attr($issuer->getId())."'>".esc_html($issuer->getDescription())."</option>";
+                $html .= "<option value='".esc_attr($issuer->getId())."'>".esc_html($issuer->getDescription()??"")."</option>";
             }
         }
 
@@ -85,12 +85,16 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
     }
 
 
-    public function validate_fields() {
-
+    public function validate_fields() : bool {
+        return true;
     }
 
-    public function process_payment( $order_id ) {
-        global $woocommerce, $wpdb;
+    /**
+     * @param int $order_id
+     * @return array<string|int, mixed>
+     */
+    public function process_payment($order_id) : array {
+        global $wpdb;
 
         $order = new WC_Order( $order_id );
 
@@ -99,10 +103,17 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
         }
 
         $method = WC_CCVOnlinePayments::get()->getMethodById($this->id);
+        if($method === null) {
+            wc_add_notice("There was an unexpected error processing your payment" , 'error' );
+            return [
+                'result' => 'failure'
+            ];
+        }
+
         if($method->isTransactionTypeSaleSupported()) {
-            $transactionType = \CCVOnlinePayments\Lib\PaymentRequest::TRANSACTION_TYPE_SALE;
+            $transactionType = \CCVOnlinePayments\Lib\Enum\TransactionType::SALE;
         }elseif($method->isTransactionTypeAuthoriseSupported()){
-            $transactionType = \CCVOnlinePayments\Lib\PaymentRequest::TRANSACTION_TYPE_AUTHORIZE;
+            $transactionType = \CCVOnlinePayments\Lib\Enum\TransactionType::AUTHORIZE;
         }else{
             throw new \Exception("No transaction types supported");
         }
@@ -112,9 +123,9 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
             $wpdb->prefix."ccvonlinepayments_payments",[
                 "payment_reference" => null,
                 "order_number"      => $order->get_order_number(),
-                "status"            => \CCVOnlinePayments\Lib\PaymentStatus::STATUS_PENDING,
+                "status"            => \CCVOnlinePayments\Lib\Enum\PaymentStatus::PENDING,
                 "method"            => $this->methodId,
-                "transaction_type"  => $transactionType
+                "transaction_type"  => $transactionType->value
             ]
         );
         $paymentId = $wpdb->insert_id;
@@ -157,8 +168,7 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
             $paymentRequest->setBrand($issuer);
         }
 
-        $paymentRequest->setScaReady(false);
-
+        /** @var ?array<string|int, mixed> $billingAddress */
         $billingAddress = $order->get_address('billing');
         if($billingAddress !== null) {
             $paymentRequest->setBillingAddress($billingAddress['address_1']);
@@ -172,6 +182,7 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
             $paymentRequest->setBillingLastName($billingAddress['last_name']);
         }
 
+        /** @var ?array<string|int, mixed> $shippingAddress */
         $shippingAddress = $order->get_address('shipping');
         if($shippingAddress !== null) {
             $paymentRequest->setShippingAddress($shippingAddress['address_1']);
@@ -185,12 +196,15 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
         }
 
         if($order->get_customer_id() > 0) {
-            $paymentRequest->setAccountInfoAccountIdentifier($order->get_customer_id());
+            $paymentRequest->setAccountInfoAccountIdentifier(strval($order->get_customer_id()));
 
-            /** @var WP_User $userData */
+            /** @var false|WP_User $userData */
             $userData = get_userdata($order->get_customer_id());
             if($userData !== false) {
-                $paymentRequest->setAccountInfoAccountCreationDate(DateTime::createFromFormat('Y-m-d H:i:s', $userData->user_registered));
+                $userRegistered = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $userData->user_registered);
+                if($userRegistered !== false) {
+                    $paymentRequest->setAccountInfoAccountCreationDate($userRegistered);
+                }
                 $paymentRequest->setAccountInfoEmail($userData->user_email);
             }
         }
@@ -249,10 +263,16 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
         return true;
     }
 
+    /**
+     * @param int $order_id
+     * @param ?float $amount
+     * @param string $reason
+     * @return bool|WP_Error
+     */
     public function process_refund($order_id, $amount = null, $reason = '' ) {
         $order = wc_get_order($order_id);
 
-        if(!$order) {
+        if(!($order instanceof WC_Order)) {
             return false;
         }
 
@@ -262,6 +282,10 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
         }
 
         $method = WC_CCVOnlinePayments::get()->getMethodById($this->id);
+        if($method === null) {
+            return false;
+        }
+
         if($method->isOrderLinesRequired() && $amount != $order->get_total()) {
             return false;
         }
@@ -272,10 +296,7 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
         if($amount !== null) {
             $refundRequest->setAmount($amount);
         }
-
-        if($reason !== null) {
-            $refundRequest->setDescription($reason);
-        }
+        $refundRequest->setDescription($reason);
 
         try {
             $refundRequest = WC_CCVOnlinePayments::get()->getApi()->createRefund($refundRequest);
@@ -290,21 +311,7 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
         }
     }
 
-
-    private function getPaymentReference($order) {
-        global $wpdb;
-        $payment = $wpdb->get_row( $wpdb->prepare(
-            'SELECT payment_reference FROM '.$wpdb->prefix.'ccvonlinepayments_payments WHERE order_number=%s', $order->get_order_number())
-        );
-
-        if($payment === null) {
-            return false;
-        }
-
-        return $payment->payment_reference;
-    }
-
-    private function getReferenceForRefund($order) {
+    private function getReferenceForRefund(WC_Order $order) : string|false {
         global $wpdb;
         $payment = $wpdb->get_row( $wpdb->prepare(
             'SELECT payment_reference, transaction_type, capture_reference FROM '.$wpdb->prefix.'ccvonlinepayments_payments WHERE status="success" AND order_number=%s', $order->get_order_number())
@@ -314,7 +321,7 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
             return false;
         }
 
-        if($payment->transaction_type === \CCVOnlinePayments\Lib\PaymentRequest::TRANSACTION_TYPE_AUTHORIZE) {
+        if($payment->transaction_type === \CCVOnlinePayments\Lib\Enum\TransactionType::AUTHORIZE->value) {
             if($payment->capture_reference) {
                 return $payment->capture_reference;
             }else{
@@ -325,8 +332,12 @@ abstract class WC_CcvOnlinePayments_Gateway extends WC_Payment_Gateway {
         }
     }
 
-    public abstract function getDefaultTitle();
-    public function getDefaultDescription() {
+    public abstract function getDefaultTitle() : string;
+    public function getDefaultDescription() : string{
         return "";
+    }
+
+    public function updateOptions() : void {
+        parent::process_admin_options();
     }
 }

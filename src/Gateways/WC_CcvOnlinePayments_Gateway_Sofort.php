@@ -6,7 +6,7 @@ class WC_CcvOnlinePayments_Gateway_Sofort extends WC_CcvOnlinePayments_Gateway {
         parent::__construct("sofort");
     }
 
-    public function getDefaultTitle() {
+    public function getDefaultTitle() : string {
         return __("Sofort", 'ccvonlinepayments');
     }
 }

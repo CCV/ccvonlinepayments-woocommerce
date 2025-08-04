@@ -6,7 +6,7 @@ class WC_CcvOnlinePayments_Gateway_Card_Visa extends WC_CcvOnlinePayments_Gatewa
         parent::__construct("card_visa");
     }
 
-    public function getDefaultTitle() {
+    public function getDefaultTitle() : string {
         return __("Visa", 'ccvonlinepayments');
     }
 }

@@ -6,7 +6,7 @@ class WC_CcvOnlinePayments_Gateway_Googlepay extends WC_CcvOnlinePayments_Gatewa
         parent::__construct("googlepay");
     }
 
-    public function getDefaultTitle() {
+    public function getDefaultTitle() : string {
         return __("Google Pay", 'ccvonlinepayments');
     }
 }

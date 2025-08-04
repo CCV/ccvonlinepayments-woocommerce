@@ -4,7 +4,7 @@ class Applepay extends CCVPaymentMethod {
 
     protected $name = "ccvonlinepayments_applepay";
 
-    public function getDefaultTitle() {
+    public function getDefaultTitle() : string {
         return __("Apple Pay", 'ccvonlinepayments');
     }
 }

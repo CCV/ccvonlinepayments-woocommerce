@@ -6,7 +6,7 @@ class WC_CcvOnlinePayments_Gateway_Banktransfer extends WC_CcvOnlinePayments_Gat
         parent::__construct("banktransfer");
     }
 
-    public function getDefaultTitle() {
+    public function getDefaultTitle() : string {
         return __("Bank Transfer", 'ccvonlinepayments');
     }
 }

@@ -6,7 +6,7 @@ class WC_CcvOnlinePayments_Gateway_Giropay extends WC_CcvOnlinePayments_Gateway 
         parent::__construct("giropay");
     }
 
-    public function getDefaultTitle() {
+    public function getDefaultTitle() : string {
         return __("Giropay", 'ccvonlinepayments');
     }
 }

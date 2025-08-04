@@ -6,7 +6,7 @@ class WC_CcvOnlinePayments_Gateway_Eps extends WC_CcvOnlinePayments_Gateway {
         parent::__construct("eps");
     }
 
-    public function getDefaultTitle() {
+    public function getDefaultTitle() : string {
         return __("Eps", 'ccvonlinepayments');
     }
 }

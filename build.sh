@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
 composer install
+vendor/bin/phpstan || exit $?
+
+rm -Rf vendor
+composer install --no-dev
 bash copyImages.sh
 
 PACKAGE_VERSION=$(cat composer.json \

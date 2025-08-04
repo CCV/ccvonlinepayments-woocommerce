@@ -6,7 +6,7 @@ class WC_CcvOnlinePayments_Gateway_Paypal extends WC_CcvOnlinePayments_Gateway {
         parent::__construct("paypal");
     }
 
-    public function getDefaultTitle() {
+    public function getDefaultTitle() : string {
         return __("Paypal", 'ccvonlinepayments');
     }
 }

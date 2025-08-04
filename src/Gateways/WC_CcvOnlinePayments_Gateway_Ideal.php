@@ -6,7 +6,7 @@ class WC_CcvOnlinePayments_Gateway_Ideal extends WC_CcvOnlinePayments_Gateway {
         parent::__construct("ideal");
     }
 
-    public function getDefaultTitle() {
+    public function getDefaultTitle() : string {
         return __("iDeal", 'ccvonlinepayments');
     }
 }

@@ -2,7 +2,7 @@
 
 class WC_CCVOnlinePayments_Cache extends CCVOnlinePayments\Lib\Cache {
 
-    private $keyPrefix;
+    private string $keyPrefix;
 
     public function __construct(string $keyPrefix = "")
     {

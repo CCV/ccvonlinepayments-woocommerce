@@ -4,7 +4,7 @@ class Banktransfer extends CCVPaymentMethod {
 
     protected $name = "ccvonlinepayments_banktransfer";
 
-    public function getDefaultTitle() {
+    public function getDefaultTitle() : string {
         return __("Bank Transfer", 'ccvonlinepayments');
     }
 }

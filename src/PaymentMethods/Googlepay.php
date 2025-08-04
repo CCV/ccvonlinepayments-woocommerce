@@ -4,7 +4,7 @@ class Googlepay extends CCVPaymentMethod {
 
     protected $name = "ccvonlinepayments_googlepay";
 
-    public function getDefaultTitle() {
+    public function getDefaultTitle() : string {
         return __("Google Pay", 'ccvonlinepayments');
     }
 }

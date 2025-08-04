@@ -6,7 +6,7 @@ class WC_CcvOnlinePayments_Gateway_Card_Mastercard extends WC_CcvOnlinePayments_
         parent::__construct("card_mastercard");
     }
 
-    public function getDefaultTitle() {
+    public function getDefaultTitle() : string {
         return __("Mastercard", 'ccvonlinepayments');
     }
 }
