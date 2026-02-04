@@ -23,7 +23,7 @@ CCV makes the following payment methods available in this plugin:
 To support this plugin, the following requirements must be met:
 -	WooCommerce 4.2 or higher
 -	WordPress 5.4 or higher
--	PHP 7.2 or higher
+-	PHP 8.1.0 or higher
 -	MyCCV account & API key*
 
 *The live API key is released after successful boarding by CCV Online Payments. To register, contact us [here](https://www.ccv.eu/en/solutions/payment-services/ccv-online-payments/partners/online-payments-form/).
