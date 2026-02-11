@@ -7,7 +7,7 @@ CCV has developed a dedicated plugin that seamlessly integrates WooCommerce with
 
 # Payment methods
 CCV makes the following payment methods available in this plugin: 
-- iDeal
+- iDeal / Wero
 - Bancontact
 - Apple Pay
 - Google Pay

@@ -5,11 +5,11 @@
  * Description: Official CCV Payment Services plugin for WooCommerce
  * Author: CCV Online Payments
  * Author URI: https://www.ccv.eu/nl/betaaloplossingen/betaaloplossingen-online/ccv-online-payments/
- * Version: 1.10.2
+ * Version: 1.11.0
  * Requires at least: 5.4
- * Tested up to: 6.8.2
+ * Tested up to: 6.9
  * WC requires at least: 4.2
- * WC tested up to: 10.0.4
+ * WC tested up to: 10.10.2
  */
 
 const CCVONLINEPAYMENTS_MIN_PHP_VERSION  = "8.1.0";
