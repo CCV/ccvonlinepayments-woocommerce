@@ -13,8 +13,27 @@ class CCVPaymentsSettingsPage extends WC_Settings_Page {
     }
 
     public function output() : void {
-        $api = WC_CCVOnlinePayments::get()->getApi();
-        if($api->isKeyValid()) {
+        try {
+            $api = WC_CCVOnlinePayments::get()->getApi();
+            $isKeyValid = $api->isKeyValid();
+        }catch(\CCVOnlinePayments\Lib\Exception\ApiException $apiException) {
+            if($apiException->getHttpStatusCode() === 403) {
+                echo '<div id="ccvOnlinePaymentsApiKeyInvalidMessage" class="error inline"><p><strong>';
+                echo esc_html(__('Your ip has been blocked. Please contact CCV.', 'ccvonlinepayments'));
+                echo '</strong></p></div>';
+            }else{
+                echo '<div id="ccvOnlinePaymentsApiKeyInvalidMessage" class="error inline"><p><strong>';
+                $errorString = __('An error (Http %d error) has occurred. Please try again later or contact CCV.', 'ccvonlinepayments');
+                $errorString = sprintf($errorString, $apiException->getHttpStatusCode());
+                echo esc_html($errorString);
+                echo '</strong></p></div>';
+            }
+
+            parent::output();
+            return;
+        }
+
+        if($isKeyValid) {
             echo '<div id="ccvOnlinePaymentsApiKeyValidMessage" class="updated inline"><p><strong>';
             echo esc_html(__('The api key is correct.', 'ccvonlinepayments'));
             echo '</strong></p></div>';

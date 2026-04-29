@@ -5,7 +5,7 @@
  * Description: Official CCV Payment Services plugin for WooCommerce
  * Author: CCV Online Payments
  * Author URI: https://www.ccv.eu/nl/betaaloplossingen/betaaloplossingen-online/ccv-online-payments/
- * Version: 1.11.0
+ * Version: 1.11.1
  * Requires at least: 5.4
  * Tested up to: 6.9
  * WC requires at least: 4.2
@@ -225,9 +225,14 @@ function ccvonlinepayments_woocommerce_not_installed() : void {
  */
 function ccvonlinepayments_disable_gateways(array $gateways): array {
     $api = WC_CCVOnlinePayments::get()->getApi();
+    try {
+        $isKeyValid = $api->isKeyValid();
+    }catch(\CCVOnlinePayments\Lib\Exception\ApiException $exception) {
+        $isKeyValid = false;
+    }
 
     $methodsAllowed = [];
-    if($api->isKeyValid()) {
+    if($isKeyValid) {
         foreach($api->getMethods() as $method) {
             if($method->isCurrencySupported(get_woocommerce_currency())) {
                 $methodsAllowed[$method->getId()] = true;

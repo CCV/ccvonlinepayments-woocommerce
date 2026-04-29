@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bad108ff29bfa544e43831ae518358ba",
+    "content-hash": "f2b3366612f75a43f9e5a4c461c7dbb3",
     "packages": [
         {
             "name": "brick/phonenumber",
@@ -93,16 +93,16 @@
         },
         {
             "name": "ccv/php-lib",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CCV/ccvonlinepayments-php-lib.git",
-                "reference": "bf65db38ee4031897810a75a1de805796cf29dd7"
+                "reference": "d6fbf7be301e294279e46d756e025d66053dd972"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CCV/ccvonlinepayments-php-lib/zipball/bf65db38ee4031897810a75a1de805796cf29dd7",
-                "reference": "bf65db38ee4031897810a75a1de805796cf29dd7",
+                "url": "https://api.github.com/repos/CCV/ccvonlinepayments-php-lib/zipball/d6fbf7be301e294279e46d756e025d66053dd972",
+                "reference": "d6fbf7be301e294279e46d756e025d66053dd972",
                 "shasum": ""
             },
             "require": {
@@ -136,9 +136,9 @@
             ],
             "support": {
                 "issues": "https://github.com/CCV/ccvonlinepayments-php-lib/issues",
-                "source": "https://github.com/CCV/ccvonlinepayments-php-lib/tree/v2.0.0"
+                "source": "https://github.com/CCV/ccvonlinepayments-php-lib/tree/v2.0.1"
             },
-            "time": "2025-08-04T09:27:35+00:00"
+            "time": "2026-04-29T11:53:10+00:00"
         },
         {
             "name": "giggsey/libphonenumber-for-php",

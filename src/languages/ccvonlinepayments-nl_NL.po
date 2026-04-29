@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ccvonlinepayments\n"
 "POT-Creation-Date: 2021-08-02T15:25:21+02:00\n"
-"PO-Revision-Date: 2026-02-02 09:00+0000\n"
+"PO-Revision-Date: 2026-04-29 09:11+0000\n"
 "Language: nl-NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -12,14 +12,21 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
-"X-Loco-Version: 2.8.1; wp-6.9; php-8.3.23"
+"X-Loco-Version: 2.8.1; wp-6.9.4; php-8.3.30"
 
 #: Gateways/WC_CcvOnlinePayments_Gateway_Card_Amex.php:10
 #: PaymentMethods/Card_Amex.php:8
 msgid "American Express"
 msgstr "American Express"
 
-#: Settings/CCVPaymentsSettingsPage.php:42
+#: Settings/CCVPaymentsSettingsPage.php:26
+msgid ""
+"An error (Http %d error) has occurred. Please try again later or contact CCV."
+msgstr ""
+"Er heeft zich een fout (Http %d error) voorgedaan. Probeer het later opnieuw "
+"of neem contact op met CCV."
+
+#: Settings/CCVPaymentsSettingsPage.php:61
 msgid "API key"
 msgstr "API key"
 
@@ -46,7 +53,7 @@ msgstr "CCV Online Payments"
 msgid "CCV Online Payments for Woocommerce"
 msgstr "CCV Online Payments voor Woocommerce"
 
-#: Settings/CCVPaymentsSettingsPage.php:37
+#: Settings/CCVPaymentsSettingsPage.php:56
 msgid "CCV Online Payments Settings"
 msgstr "CCV Online Payments Instellingen"
 
@@ -58,7 +65,7 @@ msgstr "CCV Payments"
 msgid "Choose your bank..."
 msgstr "Kies uw bank..."
 
-#: ccvonlinepayments.php:355
+#: ccvonlinepayments.php:360
 msgid "Could not capture payment."
 msgstr "Kon de betaling niet vastleggen"
 
@@ -133,11 +140,11 @@ msgstr "Even geduld"
 msgid "Sofort"
 msgstr "Sofort"
 
-#: Settings/CCVPaymentsSettingsPage.php:19
+#: Settings/CCVPaymentsSettingsPage.php:38
 msgid "The api key is correct."
 msgstr "De api key is geldig."
 
-#: Settings/CCVPaymentsSettingsPage.php:23
+#: Settings/CCVPaymentsSettingsPage.php:42
 msgid "The api key is invalid."
 msgstr "De api key is ongeldig."
 
@@ -149,6 +156,10 @@ msgstr "Titel"
 #: PaymentMethods/Card_Visa.php:8
 msgid "Visa"
 msgstr "Visa"
+
+#: Settings/CCVPaymentsSettingsPage.php:22
+msgid "Your ip has been blocked. Please contact CCV."
+msgstr "Uw IP is geblokkeerd. Neem contact op met CCV."
 
 #: WC_CCVOnlinePayments.php:134
 msgid "Your payment status is being processed."
